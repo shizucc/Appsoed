@@ -52,7 +52,6 @@ dependencies:
   getwidget: ^3.1.1
   curved_navigation_bar: ^1.0.3
   intl: ^0.18.1
-  syncfusion_flutter_pdfviewer: ^22.2.5
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +66,7 @@ dev_dependencies:
   url_launcher: ^6.1.5
   # url_launcher: ^6.0.20
   http: ^1.1.0
+  change_app_package_name: ^1.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

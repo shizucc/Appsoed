@@ -207,7 +207,7 @@ class WidgetConnectionSuccess extends StatelessWidget {
                   text: 'Lapor',
                   items: 'lapor',
                   onTap: () {
-                    Get.toNamed(Routes.PROFILE_KABINET);
+                    Get.toNamed(Routes.LAPOR);
                   },
                 ),
               ],

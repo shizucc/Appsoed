@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LiveChat extends StatelessWidget {
-  const LiveChat({super.key});
+class LaporPage extends StatelessWidget {
+  const LaporPage({super.key});
 
   Future<void> _launchUrl(String url) async {
-    final Uri uri = Uri(scheme: "https", host:url);
+    final Uri uri = Uri(scheme: "https", host: url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw "Can not launch url";
     }
@@ -25,7 +26,7 @@ class LiveChat extends StatelessWidget {
               children: <Widget>[
                 RawMaterialButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/");
+                    Get.back();
                   },
                   elevation: 1.0,
                   fillColor: Colors.white,
@@ -75,16 +76,17 @@ class LiveChat extends StatelessWidget {
                       SizedBox(height: 30),
                       ElevatedButton(
                           onPressed: () {
-                            _launchUrl("pelecehanseksual.rifkiromadhan.repl.co");
+                            _launchUrl(
+                                "pelecehanseksual.rifkiromadhan.repl.co");
                           },
                           style: ButtonStyle(
                               backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
+                                  MaterialStateProperty.all(Colors.white),
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.symmetric(
                                       horizontal: 40, vertical: 10)),
                               shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20.0),
                                       side: BorderSide(

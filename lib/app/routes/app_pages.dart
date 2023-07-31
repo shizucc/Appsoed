@@ -1,3 +1,4 @@
+import 'package:appsoed/app/views/views/lapor_page.dart';
 import 'package:get/get.dart';
 
 import '../modules/fakultas/bindings/fakultas_binding.dart';
@@ -130,6 +131,10 @@ class AppPages {
     GetPage(
       name: Routes.LAYANAN_UNSOED,
       page: () => const LayananUnsoed(),
+    ),
+    GetPage(
+      name: Routes.LAPOR,
+      page: () => const LaporPage(),
     ),
   ];
 }
