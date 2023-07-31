@@ -43,6 +43,7 @@ class AuthController extends GetxController {
   Future signinAnonym() async {
     try {
       await auth.signInAnonymously();
+
       Get.offAllNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {

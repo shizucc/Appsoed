@@ -1,5 +1,6 @@
 import 'package:appsoed/app/modules/layanan_unsoed/model/dokumen_model.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class ReaderScreen extends StatefulWidget {
   ReaderScreen(this.doc, {Key? key}) : super(key: key);
@@ -26,7 +27,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
           ),
         ),
       ),
-      body: Container(),
+      body: Container(
+        child: SfPdfViewer.asset(widget.doc.doc_asset!),
+      ),
     );
   }
 }

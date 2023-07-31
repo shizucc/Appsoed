@@ -189,6 +189,27 @@ class WidgetConnectionSuccess extends StatelessWidget {
                     Get.toNamed(Routes.MEDIA_PARTNER);
                   },
                 ),
+                MainContentWidget(
+                  text: 'Profile\nKabinet',
+                  items: 'profilekabinet',
+                  onTap: () {
+                    Get.toNamed(Routes.PROFILE_KABINET);
+                  },
+                ),
+                MainContentWidget(
+                  text: 'Info\nKos',
+                  items: 'infokos',
+                  onTap: () {
+                    Get.toNamed(Routes.PROFILE_KABINET);
+                  },
+                ),
+                MainContentWidget(
+                  text: 'Lapor',
+                  items: 'lapor',
+                  onTap: () {
+                    Get.toNamed(Routes.PROFILE_KABINET);
+                  },
+                ),
               ],
             ),
 
