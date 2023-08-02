@@ -39,9 +39,9 @@ class _NotificationViewState extends State<NotificationView> {
                 right: 16,
                 bottom: 50,
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   BackButtonWidget(),
                   Text(
                     'Notification',

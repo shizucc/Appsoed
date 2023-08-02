@@ -1,3 +1,4 @@
+import 'package:appsoed/app/modules/infokost/views/kost_list.dart';
 import 'package:appsoed/app/views/views/lapor_page.dart';
 import 'package:get/get.dart';
 
@@ -135,6 +136,10 @@ class AppPages {
     GetPage(
       name: Routes.LAPOR,
       page: () => const LaporPage(),
+    ),
+    GetPage(
+      name: Routes.KOST,
+      page: () => const ListKost(),
     ),
   ];
 }

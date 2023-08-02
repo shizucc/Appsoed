@@ -2,8 +2,6 @@ import 'package:appsoed/app/modules/layanan_unsoed/model/dokumen_model.dart';
 import 'package:appsoed/app/modules/layanan_unsoed/screens_layanan/reader_layanan.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../screens_layanan/reader_layanan.dart';
-import '../model/dokumen_model.dart';
 
 class LayananUnsoed extends GetView {
   const LayananUnsoed({Key? key}) : super(key: key);

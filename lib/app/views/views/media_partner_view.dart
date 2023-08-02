@@ -35,8 +35,8 @@ class MediaPartnerView extends StatelessWidget {
             // NOTE: white background containing content
             Container(
               height: Get.height,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.vertical(
                   top: Radius.circular(30),
                 ),
                 color: Colors.white,
@@ -105,8 +105,8 @@ class MediaPartnerView extends StatelessWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            Column(
-                              children: const [
+                            const Column(
+                              children: [
                                 CircleAvatar(
                                   backgroundColor: Colors.amber,
                                   foregroundColor: Colors.white,

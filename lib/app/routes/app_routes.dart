@@ -28,6 +28,7 @@ abstract class Routes {
   static const TODOLIST = _Paths.TODOLIST;
   static const LAYANAN_UNSOED = _Paths.LAYANAN_UNSOED;
   static const LAPOR = _Paths.LAPOR;
+  static const KOST = _Paths.KOST;
 }
 
 abstract class _Paths {
@@ -56,4 +57,5 @@ abstract class _Paths {
   static const TODOLIST = '/todolist';
   static const LAYANAN_UNSOED = '/layanan-unsoed';
   static const LAPOR = '/lapor';
+  static const KOST = '/kost';
 }

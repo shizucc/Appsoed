@@ -15,7 +15,7 @@ class NewsAppView extends GetView<NewsAppController> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Titik Pijar News',
+            'Simpul Asa News',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

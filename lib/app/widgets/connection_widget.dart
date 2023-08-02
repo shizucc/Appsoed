@@ -197,10 +197,10 @@ class WidgetConnectionSuccess extends StatelessWidget {
                   },
                 ),
                 MainContentWidget(
-                  text: 'Info\nKos',
+                  text: 'Info\nKost',
                   items: 'infokos',
                   onTap: () {
-                    Get.toNamed(Routes.PROFILE_KABINET);
+                    Get.toNamed(Routes.KOST);
                   },
                 ),
                 MainContentWidget(

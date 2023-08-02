@@ -11,9 +11,8 @@ class KostAPIService {
   @override
   Future<List<Kost>> getUser(String token) async {
     final http.Response response = await http.get(
-      Uri.parse(_baseURL + '/kost'),
+      Uri.parse('$_baseURL/kost'),
     );
-    print(response.body);
     return kostFromJson(response.body);
   }
 }

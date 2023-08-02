@@ -10,8 +10,8 @@ class Dokument {
     Dokument(
         "Modul Uang Kuliah Tunggal", "assets/ukt_2022.pdf", "19 Juli 2022", 17),
     Dokument("Pedoman Umum Administrasi Eksternal", "assets/manual.pdf",
-        "19 Juli 2022", 27),
-    Dokument(
-        "Handbook Minat dan Bakat", "assets/handbook.pdf", "19 Juli 2022", 61),
+        "3 Agustus 2023", 27),
+    Dokument("Handbook Minat dan Bakat", "assets/handbook.pdf",
+        "3 Agustus 2023", 52),
   ];
 }

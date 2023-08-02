@@ -60,7 +60,7 @@ class FakultasView extends GetView<FakultasController> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      primary: const Color(0xffFDB731),
+                      backgroundColor: const Color(0xffFDB731),
                     ),
                     child: Align(
                       alignment: Alignment.centerLeft,

@@ -67,12 +67,12 @@ class AppsoedLoginView extends GetView {
               ],
             ),
           ),
-          Positioned(
+          const Positioned(
             bottom: 24,
             right: 0,
             left: 0,
             child: Column(
-              children: const [
+              children: [
                 Text(
                   'BEM UNSOED',
                   style: TextStyle(

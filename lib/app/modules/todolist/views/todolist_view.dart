@@ -13,7 +13,6 @@ class TodolistView extends GetView<TodolistController> {
         onPressed: () {
           if (controller.todoController.text.isNotEmpty) {
             var c = controller.addNote();
-            print(c);
           } else {
             Get.snackbar(
               'Error',

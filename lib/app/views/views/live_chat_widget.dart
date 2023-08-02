@@ -65,7 +65,7 @@ class LiveChatWidget extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xffFDB731),
+                      backgroundColor: const Color(0xffFDB731),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),

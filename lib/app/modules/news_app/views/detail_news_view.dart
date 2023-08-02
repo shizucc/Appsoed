@@ -120,10 +120,10 @@ class DetailNewsView extends StatelessWidget {
                   // NOTE: END CONTENT ===========
 
                   // NOTE: MEDIA SOCIAL OF BEM
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Media Sosial',
                         style: TextStyle(
                           fontSize: 16,
@@ -131,11 +131,11 @@ class DetailNewsView extends StatelessWidget {
                           color: Color(0xff373737),
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 10,
                       ),
                       Wrap(
-                        children: const [
+                        children: [
                           SocialWidget(
                             image: 'Instagram',
                             link: 'https://instagram.com/bem_unsoed',

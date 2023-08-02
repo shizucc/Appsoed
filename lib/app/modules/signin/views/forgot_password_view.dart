@@ -62,7 +62,7 @@ class ForgotPasswordView extends GetView {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  primary: const Color(0xffFDB731),
+                  backgroundColor: const Color(0xffFDB731),
                 ),
                 child: const Text('Submit'),
                 onPressed: () {

@@ -15,7 +15,7 @@ class LaporPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFDB731),
+      backgroundColor: const Color(0xffFDB731),
       body: SafeArea(
         child: ListView(
           shrinkWrap: true,
@@ -30,25 +30,25 @@ class LaporPage extends StatelessWidget {
                   },
                   elevation: 1.0,
                   fillColor: Colors.white,
-                  child: Icon(
+                  padding: const EdgeInsets.all(5.0),
+                  shape: const CircleBorder(),
+                  child: const Icon(
                     Icons.chevron_left,
                     size: 30.0,
                   ),
-                  padding: const EdgeInsets.all(5.0),
-                  shape: const CircleBorder(),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Container(
                   alignment: Alignment.center,
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     backgroundColor: Colors.white,
                     backgroundImage: AssetImage("./assets/Group171.png"),
                     radius: 130,
                   ),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15),
@@ -57,23 +57,23 @@ class LaporPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 1.7,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
-                    padding: EdgeInsets.fromLTRB(50, 30, 50, 137),
+                    padding: const EdgeInsets.fromLTRB(50, 30, 50, 137),
                     shrinkWrap: true,
                     children: [
-                      Text(
+                      const Text(
                         "Ada yang bisa kami bantu ?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w700),
                       ),
-                      SizedBox(height: 30),
-                      Text(
+                      const SizedBox(height: 30),
+                      const Text(
                         "Bantu orang-orang disekitarmu dari tindak kejahatan seksual! Kalau bukan kita, siapa lagi?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       ElevatedButton(
                           onPressed: () {
                             _launchUrl(
@@ -83,15 +83,15 @@ class LaporPage extends StatelessWidget {
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.white),
                               padding: MaterialStateProperty.all(
-                                  EdgeInsets.symmetric(
+                                  const EdgeInsets.symmetric(
                                       horizontal: 40, vertical: 10)),
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20.0),
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                           color: Color(0xffFDB731))))),
-                          child: Text(
+                          child: const Text(
                             "Call Center",
                             style: TextStyle(
                                 color: Color(0xffFDB731),

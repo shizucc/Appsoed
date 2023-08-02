@@ -59,9 +59,9 @@ class AboutAppsoedView extends GetView {
                     height: 20,
                   ),
                   // NOTE: CONTENT
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Apa itu Apppsoed Pro',
                         style: TextStyle(

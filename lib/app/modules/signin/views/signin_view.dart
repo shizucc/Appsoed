@@ -136,8 +136,8 @@ class SigninView extends GetView<SigninController> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Expanded(
                           child: Padding(
                             padding: EdgeInsets.only(

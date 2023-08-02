@@ -97,8 +97,7 @@ class SignupView extends GetView<SignupController> {
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
-                    ),
-                    primary: const Color(0xffFDB731),
+                    ), backgroundColor: const Color(0xffFDB731),
                   ),
                   child: const Text('Sign Up'),
                   onPressed: () {
@@ -114,8 +113,8 @@ class SignupView extends GetView<SignupController> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Expanded(
                           child: Padding(
                             padding: EdgeInsets.only(
