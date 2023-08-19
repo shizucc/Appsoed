@@ -6,7 +6,6 @@ import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
 Future<dynamic> getKosts() async {
   const url = 'https://api.bem-unsoed.com/api/kost';
   final response = await http.get(Uri.parse(url));
@@ -339,13 +338,17 @@ class Kost extends StatelessWidget {
               height: 5,
             ),
             Container(
-              padding: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
+              padding: const EdgeInsets.only(
+                  bottom: 20, left: 15, right: 15, top: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     name.capitalize(),
                     style: const TextStyle(fontSize: 22),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -354,38 +357,38 @@ class Kost extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              CupertinoIcons.placemark,
-                              color: Color.fromRGBO(0, 0, 0, 0.5),
+                            Row(
+                              children: [
+                                const Icon(
+                                  CupertinoIcons.placemark,
+                                  color: Color.fromRGBO(0, 0, 0, 0.5),
+                                ),
+                                Text(
+                                  region.capitalize(),
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w300,
+                                      color: Color.fromRGBO(0, 0, 0, 0.5)),
+                                ),
+                              ],
                             ),
-                            Text(
-                              region.capitalize(),
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color.fromRGBO(0, 0, 0, 0.5)),
+                            const SizedBox(
+                              height: 10,
                             ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Wrap(
-                          runSpacing: 7,
-                          children: [
-                            type == 'l'
-                                ? const TypeKost(type: "L")
-                                : Container(),
-                            type == 'p'
-                                ? const TypeKost(type: "P")
-                                : Container(),
-                            type == 'campur'
-                                ? const TypeKost(type: "Campur")
-                                : Container()
-                          ],
-                        )
+                            Wrap(
+                              runSpacing: 7,
+                              children: [
+                                type == 'l'
+                                    ? const TypeKost(type: "L")
+                                    : Container(),
+                                type == 'p'
+                                    ? const TypeKost(type: "P")
+                                    : Container(),
+                                type == 'campur'
+                                    ? const TypeKost(type: "Campur")
+                                    : Container()
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -394,10 +397,12 @@ class Kost extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             const Text("Mulai dari "),
+                            SizedBox(
+                              height: 5,
+                            ),
                             hasPrice
                                 ? Text(
-                                    CurrencyFormat.convertToIdr(
-                                        priceStart, 0),
+                                    CurrencyFormat.convertToIdr(priceStart, 0),
                                     style: const TextStyle(
                                         fontSize: 14,
                                         color: Color.fromRGBO(0, 0, 0, 0.7),

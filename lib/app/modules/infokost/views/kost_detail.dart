@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -192,8 +191,8 @@ class _DetailKostState extends State<DetailKost> {
                                   // Convert JSON to array
 
                                   List<String> imageList = images
-                                      .map<String>((image) =>
-                                          image['image'].toString())
+                                      .map<String>(
+                                          (image) => image['image'].toString())
                                       .toList();
 
                                   // final img =
@@ -201,8 +200,7 @@ class _DetailKostState extends State<DetailKost> {
                                   //         ? snapshot.data['images']
                                   //         : ['assets/images/kost.jpg'];
 
-                                  final String nameDump =
-                                      snapshot.data['name'];
+                                  final String nameDump = snapshot.data['name'];
                                   final name = nameDump.capitalize();
                                   // final List images =
                                   //     img.map((e) => e.toString()).toList();
@@ -234,8 +232,7 @@ class _DetailKostState extends State<DetailKost> {
                                                                     _currentImg)));
                                               },
                                               child: Center(
-                                                  child: (imageList
-                                                          .isNotEmpty)
+                                                  child: (imageList.isNotEmpty)
                                                       ? Image.network(
                                                           "https://api.bem-unsoed.com/api/kost/image/$item",
                                                           fit: BoxFit.cover,
@@ -281,8 +278,8 @@ class _DetailKostState extends State<DetailKost> {
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5)),
-                                margin: const EdgeInsets.only(
-                                    left: 10, bottom: 10),
+                                margin:
+                                    const EdgeInsets.only(left: 10, bottom: 10),
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 7),
                                 child: Text("$_currentImg" "/$imgLength")),
@@ -300,8 +297,7 @@ class _DetailKostState extends State<DetailKost> {
           SliverList(
             delegate: SliverChildListDelegate([
               Container(
-                  padding:
-                      const EdgeInsets.only(top: 20, left: 25, right: 25),
+                  padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
                   child: FutureBuilder(
                     future: displayKost(),
                     builder: (context, snapshot) {
@@ -387,9 +383,8 @@ class _DetailKostState extends State<DetailKost> {
                                   child: Column(
                                     children: facilities
                                         .map((facility) => Padding(
-                                              padding:
-                                                  const EdgeInsets.only(
-                                                      bottom: 2),
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 2),
                                               child: Row(children: [
                                                 Icon(
                                                   Icons.circle,
@@ -425,37 +420,35 @@ class _DetailKostState extends State<DetailKost> {
                             ),
                             hasLocation
                                 ? Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    const Text(
-                                      "Lokasi",
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    InkWell(
-                                      onTap: () => {openMap(location)},
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      20)),
-                                          child: Image.asset(
-                                            'assets/images/location_kost.png',
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Lokasi",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      InkWell(
+                                        onTap: () => {openMap(location)},
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            height: 150,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Image.asset(
+                                              'assets/images/location_kost.png',
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                )
+                                      )
+                                    ],
+                                  )
                                 : Container(),
                           ],
                         );
@@ -465,8 +458,7 @@ class _DetailKostState extends State<DetailKost> {
                           children: [
                             ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child:
-                                    Image.asset("assets/images/error.png")),
+                                child: Image.asset("assets/images/error.png")),
                             const Text(
                               "Terjadi Kesalahan",
                               style: TextStyle(fontSize: 20),
@@ -500,59 +492,66 @@ class _DetailKostState extends State<DetailKost> {
                 if (snapshot.hasData) {
                   final price = int.parse(snapshot.data['price_start']);
                   final owner = snapshot.data['owner'];
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Mulai dari :",
-                              style: TextStyle(fontSize: 17),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  price != 0
-                                      ? Text(
-                                          CurrencyFormat.convertToIdr(price, 0),
-                                          style: const TextStyle(
-                                              fontSize: 18,
-                                              color: Color.fromRGBO(
-                                                  253, 183, 49, 1)),
-                                        )
-                                      : Container(),
-                                ],
+                  return Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Mulai dari :",
+                                style: TextStyle(fontSize: 17),
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(left: 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    price != 0
+                                        ? Text(
+                                            CurrencyFormat.convertToIdr(
+                                                price, 0),
+                                            style: const TextStyle(
+                                                fontSize: 18,
+                                                color: Color.fromRGBO(
+                                                    253, 183, 49, 1)),
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      owner != '0'
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: InkWell(
-                                onTap: () => openWhatsApp(
-                                    snapshot.data['owner'],
-                                    snapshot.data['name']),
-                                child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    decoration: const BoxDecoration(
-                                        color: Color.fromRGBO(253, 183, 49, 1)),
-                                    child: const Text(
-                                      "Hubungi Pemilik",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
-                                    )),
-                              ),
-                            )
-                          : Container()
-                    ],
+                        owner != '0'
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: InkWell(
+                                  onTap: () => openWhatsApp(
+                                      snapshot.data['owner'],
+                                      snapshot.data['name']),
+                                  child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      decoration: const BoxDecoration(
+                                          color:
+                                              Color.fromRGBO(253, 183, 49, 1)),
+                                      child: const Text(
+                                        "Hubungi Pemilik",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white),
+                                      )),
+                                ),
+                              )
+                            : Container()
+                      ],
+                    ),
                   );
                 } else if (snapshot.hasError) {
                   return Container();
@@ -639,10 +638,10 @@ class _ViewImageState extends State<ViewImage> {
               ),
               items: widget.images
                   .map((item) => Center(
-                      child: Image.network(
-                    "https://api.bem-unsoed.com/api/kost/image/$item",
-                    fit: BoxFit.cover,
-                  )))
+                          child: Image.network(
+                        "https://api.bem-unsoed.com/api/kost/image/$item",
+                        fit: BoxFit.cover,
+                      )))
                   .toList(),
             );
           },
