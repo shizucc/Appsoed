@@ -23,8 +23,6 @@ class ListKost extends StatefulWidget {
   State<ListKost> createState() => _ListKostState();
 }
 
-enum AppBarState { expanded, collapsed }
-
 class _ListKostState extends State<ListKost> {
   final ScrollController _scrollController = ScrollController();
   late AppBarState _appBarState;

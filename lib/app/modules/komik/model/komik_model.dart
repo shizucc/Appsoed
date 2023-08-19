@@ -1,64 +1,42 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
+List<Comic> comicsFromJson(String str) =>
+    List<Comic>.from(json.decode(str).map((data) => Comic.fromJson(data)));
 
-class KomikModel {
-  int id;
-  String image;
-  List<String> imageList;
-  KomikModel({
-    required this.id,
-    required this.image,
-    required this.imageList,
-  });
+Comic comicFromJson(String str) => Comic.fromJson(json.decode(str));
 
-  KomikModel copyWith({
-    int? id,
-    String? image,
-    List<String>? imageList,
-  }) {
-    return KomikModel(
-      id: id ?? this.id,
-      image: image ?? this.image,
-      imageList: imageList ?? this.imageList,
-    );
-  }
+class Comic {
+  int? id;
+  String? title;
+  String? cover;
+  List<ComicImage>? comicImage;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'image': image,
-      'imageList': imageList,
-    };
-  }
+  Comic({this.id, this.title, this.cover, this.comicImage});
 
-  factory KomikModel.fromMap(Map<String, dynamic> map) {
-    return KomikModel(
-      id: map['id']?.toInt() ?? 0,
-      image: map['image'] ?? '',
-      imageList: List<String>.from(map['list_image']),
-    );
-  }
+  factory Comic.fromJson(Map<String, dynamic> json) => Comic(
+      id: json['id'],
+      title: json['title'],
+      cover: json['cover'],
+      comicImage: json['comic_images'] == null
+          ? []
+          : List<ComicImage>.from(json['comic_images']!
+              .map((image) => ComicImage.fromJson(image))));
+}
 
-  String toJson() => json.encode(toMap());
+class ComicImage {
+  int? id;
+  int? comicId;
+  String? image;
 
-  factory KomikModel.fromJson(String source) =>
-      KomikModel.fromMap(json.decode(source));
+  ComicImage({this.id, this.comicId, this.image});
 
-  @override
-  String toString() =>
-      'KomikModel(id: $id, image: $image, imageList: $imageList)';
+  factory ComicImage.fromJson(Map<String, dynamic> json) => ComicImage(
+        id: json['id'],
+        comicId: json['comicId'],
+        image: json['image'],
+      );
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is KomikModel &&
-        other.id == id &&
-        other.image == image &&
-        listEquals(other.imageList, imageList);
-  }
-
-  @override
-  int get hashCode => id.hashCode ^ image.hashCode ^ imageList.hashCode;
+  // Useless ?
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'comic_id': comicId, 'image': image};
 }

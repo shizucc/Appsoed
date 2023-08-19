@@ -105,7 +105,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.DETAIL_KOMIK,
-      page: () => DetailKomikView(),
+      page: () => DetailComicView(),
+      binding: KomikBinding(),
     ),
     GetPage(
       name: Routes.MEDIA_PARTNER,
