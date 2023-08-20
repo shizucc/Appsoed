@@ -42,12 +42,12 @@ class _ListKostState extends State<ListKost> {
   }
 
   void _handleScroll() {
-    if (_scrollController.offset > 150 &&
+    if (_scrollController.offset > 130 &&
         _appBarState == AppBarState.expanded) {
       setState(() {
         _appBarState = AppBarState.collapsed;
       });
-    } else if (_scrollController.offset <= 150 &&
+    } else if (_scrollController.offset <= 130 &&
         _appBarState == AppBarState.collapsed) {
       setState(() {
         _appBarState = AppBarState.expanded;
@@ -63,20 +63,14 @@ class _ListKostState extends State<ListKost> {
         slivers: [
           SliverAppBar(
               leading: Container(
-                margin: const EdgeInsets.only(left: 10),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _appBarState == AppBarState.expanded
-                        ? const Color.fromARGB(255, 255, 255, 255)
-                        : Colors.transparent),
                 child: InkWell(
                   onTap: () => {Navigator.pop(context)},
                   child: Icon(
                       size: 30,
                       CupertinoIcons.back,
                       color: _appBarState == AppBarState.expanded
-                          ? const Color.fromRGBO(255, 183, 49, 1)
-                          : Colors.black),
+                          ? Colors.white
+                          : Colors.white),
                 ),
               ),
               title: _appBarState == AppBarState.collapsed
@@ -394,8 +388,8 @@ class Kost extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const Text("Mulai dari "),
-                            SizedBox(
+                            hasPrice ? const Text("Mulai dari ") : Container(),
+                            const SizedBox(
                               height: 5,
                             ),
                             hasPrice

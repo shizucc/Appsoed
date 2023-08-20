@@ -30,6 +30,16 @@ Future<void> openMap(String url) async {
   }
 }
 
+Future<void> openInstagram() async {
+  var url = "https://www.instagram.com/infokost.purwokerto/";
+  if (!await launchUrl(
+    Uri.parse(url),
+    mode: LaunchMode.externalApplication,
+  )) {
+    throw Exception('Could not launch $url');
+  }
+}
+
 Future<void> openWhatsApp(String owner, String kostName) async {
   String kost = kostName.capitalize();
   String phoneNumber = owner;
@@ -150,19 +160,13 @@ class _DetailKostState extends State<DetailKost> {
             floating: false,
             stretch: true,
             leading: Container(
-              margin: const EdgeInsets.only(left: 10),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _appBarState == AppBarState.expanded
-                      ? const Color.fromARGB(255, 255, 255, 255)
-                      : Colors.transparent),
               child: InkWell(
                 onTap: () => {Navigator.pop(context)},
                 child: Icon(
                     size: 30,
                     CupertinoIcons.back,
                     color: _appBarState == AppBarState.expanded
-                        ? const Color.fromRGBO(255, 183, 49, 1)
+                        ? Colors.white
                         : Colors.black),
               ),
             ),
@@ -375,8 +379,12 @@ class _DetailKostState extends State<DetailKost> {
                                   "Fasilitas",
                                   style: TextStyle(fontSize: 18),
                                 ),
+                                facilitiesDump == []
+                                    ? const Text(
+                                        "Fasilitas Terbaik Hanya untuk Anda!")
+                                    : Container(),
                                 const SizedBox(
-                                  height: 5,
+                                  height: 10,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
@@ -450,6 +458,34 @@ class _DetailKostState extends State<DetailKost> {
                                     ],
                                   )
                                 : Container(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: Container(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      openInstagram();
+                                    },
+                                    child: RichText(
+                                        text: TextSpan(
+                                            style: DefaultTextStyle.of(context)
+                                                .style,
+                                            children: [
+                                          TextSpan(
+                                              text: "Powered by : ",
+                                              style: TextStyle(fontSize: 15)),
+                                          TextSpan(
+                                              text: "@infokost.purwokerto",
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600))
+                                        ]))),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            )
                           ],
                         );
                       } else if (snapshot.hasError) {
@@ -501,11 +537,17 @@ class _DetailKostState extends State<DetailKost> {
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                "Mulai dari :",
-                                style: TextStyle(fontSize: 17),
-                              ),
+                              price != 0
+                                  ? const Text(
+                                      "Mulai dari :",
+                                      style: TextStyle(fontSize: 17),
+                                    )
+                                  : const Text(
+                                      "Harga Terbaik\nHanya untuk Anda!",
+                                      style: TextStyle(fontSize: 17),
+                                    ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 0),
                                 child: Column(

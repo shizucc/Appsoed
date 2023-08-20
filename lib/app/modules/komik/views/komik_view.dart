@@ -12,6 +12,7 @@ class KomikView extends GetView<KomikController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: CustomScrollView(
         controller: controller.scrollController,
         slivers: [
@@ -29,9 +30,11 @@ class KomikView extends GetView<KomikController> {
                     // ,
                     ),
               ),
-              title: controller.appBarState.value == (AppBarState.collapsed)
-                  ? const Text("Komik")
-                  : Container(),
+              title: Obx(() {
+                return controller.appBarState.value == (AppBarState.collapsed)
+                    ? const Text("Komik")
+                    : Container();
+              }),
               pinned: true,
               snap: false,
               floating: false,
@@ -79,15 +82,18 @@ class KomikView extends GetView<KomikController> {
             Container(
               child: Stack(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    color: const Color.fromRGBO(255, 183, 49, 1),
-                  ),
+                  Obx(() {
+                    return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        color: controller.appBarState.value ==
+                                (AppBarState.expanded)
+                            ? const Color.fromRGBO(255, 183, 49, 1)
+                            : Colors.white);
+                  }),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.symmetric(vertical: 20),
-                    height: 900,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -150,11 +156,13 @@ class ComicsView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Comic> comicsDump = comics.toList();
     return Wrap(
+        spacing: 25,
+        runSpacing: 25,
         children: comicsDump.map((comic) {
-      return ComicView(
-        comic: comic,
-      );
-    }).toList());
+          return ComicView(
+            comic: comic,
+          );
+        }).toList());
   }
 }
 
@@ -168,17 +176,27 @@ class ComicView extends StatelessWidget {
       onTap: () {
         Get.toNamed(Routes.DETAIL_KOMIK, arguments: comic);
       },
-      child: Column(children: [
-        Container(
-            width: 90,
-            height: 120,
-            child: Image.network(
-              comicAPIService.getCoverUri(comic.cover),
-              height: 120,
-              width: 90,
-              fit: BoxFit.cover,
-            )),
-        Text("${comic.title}")
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          child: Container(
+              color: const Color.fromRGBO(217, 217, 217, 1),
+              width: Get.height / 4 * (3 / 4),
+              height: Get.height / 4,
+              child: Image.network(
+                comicAPIService.getCoverUri(comic.cover),
+                height: 120,
+                width: 90,
+                fit: BoxFit.cover,
+              )),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "${comic.title}",
+          style: TextStyle(fontWeight: FontWeight.w500),
+        )
       ]),
     );
   }

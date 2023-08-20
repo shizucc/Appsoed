@@ -14,12 +14,14 @@ class KomikController extends GetxController {
   }
 
   void handleScroll() {
-    if (scrollController.offset > 150 &&
+    if (scrollController.offset > 130 &&
         appBarState.value == AppBarState.expanded) {
       appBarState.value = AppBarState.collapsed;
-    } else if (scrollController.offset <= 150 &&
+      update();
+    } else if (scrollController.offset <= 130 &&
         appBarState.value == AppBarState.collapsed) {
       appBarState.value = AppBarState.expanded;
+      update();
     }
   }
 }

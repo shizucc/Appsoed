@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../widgets/social_widget.dart';
 
+// ignore: must_be_immutable
 class DetailFakultasView extends GetView {
   FakultasModel fakultas = Get.arguments;
   DetailFakultasView({Key? key}) : super(key: key);

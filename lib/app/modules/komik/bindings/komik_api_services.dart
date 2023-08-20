@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:appsoed/app/modules/komik/model/komik_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,11 +27,4 @@ class ComicAPIService {
     final uri = ('$_baseURL/comic/content/$image');
     return uri;
   }
-
-  // List<String> getImagesUri(List<ComicImage> images) {
-  //   List<String> imagesUri = images
-  //       .map((image) => '$_baseURL/comic/content/${(image.image).toString()}')
-  //       .toList();
-  //   return imagesUri;
-  // }
 }
