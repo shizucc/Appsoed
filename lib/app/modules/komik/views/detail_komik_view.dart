@@ -75,8 +75,14 @@ class StickyBottomContainer extends GetView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Baca Juga"),
-                Row(
-                  children: [],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(children: [
+                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
+                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
+                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
+                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
+                  ]),
                 )
               ],
             )),
@@ -122,11 +128,14 @@ class ReadNextComic extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Container(
-        child: const Column(
+        child: Column(
           children: [
             Text("Baca juga"),
             SizedBox(
               height: 10,
+            ),
+            ListView(
+              children: [],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
