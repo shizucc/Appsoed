@@ -1,5 +1,6 @@
 import 'package:appsoed/app/modules/komik/controllers/detail_komik_controller.dart';
 import 'package:appsoed/app/modules/komik/bindings/komik_api_services.dart';
+import 'package:appsoed/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appsoed/app/modules/komik/model/komik_model.dart';
@@ -9,65 +10,71 @@ import 'package:get/get.dart';
 class DetailComicView extends StatelessWidget {
   final ScrollControllerX scrollControllerX = Get.put(ScrollControllerX());
   final ScrollController scrollController = ScrollController();
+  final ComicController comicController = Get.put(ComicController());
   DetailComicView({super.key});
   Comic comic = Get.arguments;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: CustomScrollView(
-          controller: scrollController
-            ..addListener(() {
-              scrollControllerX
-                  .initMaxPosition(scrollController.position.maxScrollExtent);
-              scrollControllerX.updateScroll(scrollController.position.pixels);
-            }),
-          slivers: [
-            SliverAppBar(
-              floating: true,
-              pinned: false,
-              snap: true,
-              leading: GestureDetector(
-                  onTap: () => {Navigator.pop(context)},
-                  child: const Icon(
-                      size: 30, CupertinoIcons.back, color: Colors.white)
-                  // ,
-                  ),
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text('${comic.title}'),
-              ),
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 25),
-                      child: ComicContent(comicImages: comic.comicImage),
+    comicController.initComic(comic);
+    return Obx(
+      () => Scaffold(
+          body: CustomScrollView(
+            controller: scrollController
+              ..addListener(() {
+                scrollControllerX
+                    .initMaxPosition(scrollController.position.maxScrollExtent);
+                scrollControllerX
+                    .updateScroll(scrollController.position.pixels);
+              }),
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                pinned: false,
+                snap: true,
+                leading: GestureDetector(
+                    onTap: () => {Navigator.pop(context)},
+                    child: const Icon(
+                        size: 30, CupertinoIcons.back, color: Colors.white)
+                    // ,
                     ),
-                    const SizedBox(
-                      height: 75,
-                    ),
-                  ],
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text('${comicController.currentComic.value.title}'),
                 ),
-              )
-            ]))
-          ],
-        ),
-        bottomNavigationBar: StickyBottomContainer(
-          scrollControllerX: scrollControllerX,
-          comic: comic,
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            scrollController.animateTo(0,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut);
-          },
-          child: Icon(CupertinoIcons.chevron_up),
-        ));
+              ),
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 25),
+                        child: ComicContent(
+                            comicImages:
+                                comicController.currentComic.value.comicImage),
+                      ),
+                      const SizedBox(
+                        height: 125,
+                      ),
+                    ],
+                  ),
+                )
+              ]))
+            ],
+          ),
+          bottomNavigationBar: StickyBottomContainer(
+            scrollControllerX: scrollControllerX,
+            comic: comicController.currentComic.value,
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              scrollController.animateTo(0,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut);
+            },
+            child: const Icon(CupertinoIcons.chevron_up),
+          )),
+    );
   }
 }
 
@@ -95,11 +102,12 @@ class StickyBottomContainer extends GetView {
                   offset: const Offset(0, 2),
                 )
               ]), // Ganti dengan warna atau dekorasi yang sesuai
-              height: 100,
+              height: 150,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Baca Juga",
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
@@ -108,13 +116,8 @@ class StickyBottomContainer extends GetView {
                   ),
                   Center(
                     child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(children: [
-                        PreviewNextComic(
-                          comicException: comic,
-                        )
-                      ]),
-                    ),
+                        scrollDirection: Axis.horizontal,
+                        child: PreviewNextComic(comicException: comic)),
                   )
                 ],
               )),
@@ -124,29 +127,26 @@ class StickyBottomContainer extends GetView {
   }
 }
 
-// ignore: must_be_immutable
 class ComicContent extends StatelessWidget {
   ComicContent({super.key, required this.comicImages});
   final dynamic comicImages;
-  ComicAPIService comicAPIService = ComicAPIService();
+  final ComicAPIService comicAPIService = ComicAPIService();
   @override
   Widget build(BuildContext context) {
     List<ComicImage> comicImagesDump = comicImages.toList();
     return Column(
         children: comicImagesDump
             .map(
-              (image) => Container(
-                child: Column(
-                  children: [
-                    Image.network(
-                      comicAPIService.getImageUri(image.image),
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    )
-                  ],
-                ),
+              (image) => Column(
+                children: [
+                  Image.network(
+                    comicAPIService.getImageUri(image.image),
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  )
+                ],
               ),
             )
             .toList());
@@ -157,6 +157,7 @@ class PreviewNextComic extends StatelessWidget {
   PreviewNextComic({super.key, required this.comicException});
   final Comic comicException;
   final comicController = ComicController();
+  final ComicAPIService comicAPIService = ComicAPIService();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -167,8 +168,46 @@ class PreviewNextComic extends StatelessWidget {
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasData) {
-            print(snapshot.data);
-            return Container();
+            dynamic comicsDump = (snapshot.data)?.toList() ?? [];
+            List<Comic> comics = comicsDump.toList();
+
+            return Row(
+                children: comics
+                    .map((comic) => GestureDetector(
+                          onTap: () {
+                            comicController.initComic(comic);
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            width: 100,
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  comicAPIService.getCoverUri(comic.cover),
+                                  height: 75,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: ((context, error, stackTrace) {
+                                    return Container(
+                                      width: 100,
+                                      height: 75,
+                                      color: Colors.grey,
+                                    );
+                                  }),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "${comic.title}",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ))
+                    .toList());
           } else {
             return const Text("No Comic available");
           }

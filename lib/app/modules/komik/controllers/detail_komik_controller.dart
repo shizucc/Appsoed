@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:appsoed/app/modules/komik/bindings/komik_api_services.dart';
+import 'dart:math';
 import 'package:appsoed/app/modules/komik/model/komik_model.dart';
 
 class ScrollControllerX extends GetxController {
@@ -24,11 +25,24 @@ class ScrollControllerX extends GetxController {
 }
 
 class ComicController extends GetxController {
-  Future<List<dynamic>> getPreviewComicData(Comic comicException) async {
-    List<Comic> comicList = await ComicAPIService().getComics();
-    comicList.removeWhere((comic) => comic.title == comicException.title);
+  Rx<Comic> currentComic = Comic().obs;
 
-    List<String?> comicTitle = comicList.map((e) => e.title).toList();
-    return comicTitle;
+  initComic(Comic comic) {
+    currentComic.value = comic;
+    print(currentComic.value.title);
+  }
+
+  Future<List<Comic>> getPreviewComicData(Comic comicException) async {
+    List<Comic> comicListDump = await ComicAPIService().getComics();
+    // Remove current comic
+    comicListDump.removeWhere((comic) => comic.title == comicException.title);
+
+    // Shuffle Comic
+    comicListDump.shuffle();
+
+    // Get 4 first Comic
+    List<Comic> comicList = comicListDump.sublist(0, 4);
+
+    return comicList;
   }
 }
