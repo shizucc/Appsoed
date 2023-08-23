@@ -1,13 +1,13 @@
 import 'package:appsoed/app/modules/komik/controllers/detail_komik_controller.dart';
 import 'package:appsoed/app/modules/komik/bindings/komik_api_services.dart';
-import 'package:appsoed/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appsoed/app/modules/komik/model/komik_model.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 // ignore: must_be_immutable
-class DetailComicView extends StatelessWidget {
+class DetailComicView extends GetView {
   final ScrollControllerX scrollControllerX = Get.put(ScrollControllerX());
   final ScrollController scrollController = ScrollController();
   final ComicController comicController = Get.put(ComicController());
@@ -16,6 +16,7 @@ class DetailComicView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     comicController.initComic(comic);
+    scrollControllerX.initScrollController(scrollController);
     return Obx(
       () => Scaffold(
           body: CustomScrollView(
@@ -65,12 +66,11 @@ class DetailComicView extends StatelessWidget {
           bottomNavigationBar: StickyBottomContainer(
             scrollControllerX: scrollControllerX,
             comic: comicController.currentComic.value,
+            comicController: comicController,
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              scrollController.animateTo(0,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInOut);
+              scrollControllerX.toUpScroll();
             },
             child: const Icon(CupertinoIcons.chevron_up),
           )),
@@ -81,8 +81,12 @@ class DetailComicView extends StatelessWidget {
 class StickyBottomContainer extends GetView {
   final ScrollControllerX scrollControllerX;
   final Comic comic;
+  final ComicController comicController;
   const StickyBottomContainer(
-      {super.key, required this.scrollControllerX, required this.comic});
+      {super.key,
+      required this.scrollControllerX,
+      required this.comic,
+      required this.comicController});
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +121,10 @@ class StickyBottomContainer extends GetView {
                   Center(
                     child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: PreviewNextComic(comicException: comic)),
+                        child: PreviewNextComic(
+                          comicException: comic,
+                          comicController: comicController,
+                        )),
                   )
                 ],
               )),
@@ -142,6 +149,9 @@ class ComicContent extends StatelessWidget {
                   Image.network(
                     comicAPIService.getImageUri(image.image),
                     width: MediaQuery.of(context).size.width,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const ComicContentFail();
+                    },
                   ),
                   const SizedBox(
                     height: 5,
@@ -153,10 +163,24 @@ class ComicContent extends StatelessWidget {
   }
 }
 
-class PreviewNextComic extends StatelessWidget {
-  PreviewNextComic({super.key, required this.comicException});
+class ComicContentFail extends StatelessWidget {
+  const ComicContentFail({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(color: Colors.grey),
+      width: Get.width * 0.9,
+      height: 15,
+    );
+  }
+}
+
+class PreviewNextComic extends GetView<ComicController> {
+  PreviewNextComic(
+      {super.key, required this.comicException, required this.comicController});
   final Comic comicException;
-  final comicController = ComicController();
+  final ComicController comicController;
   final ComicAPIService comicAPIService = ComicAPIService();
   @override
   Widget build(BuildContext context) {
@@ -164,9 +188,18 @@ class PreviewNextComic extends StatelessWidget {
         future: comicController.getPreviewComicData(comicException),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Text("Something went wrong");
+            return const Text(
+              "Temukan Banyak Komik Lainnya!",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            );
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Row(
+              children: [
+                PreviewNextComicShimmer(),
+                PreviewNextComicShimmer(),
+                PreviewNextComicShimmer()
+              ],
+            );
           } else if (snapshot.hasData) {
             dynamic comicsDump = (snapshot.data)?.toList() ?? [];
             List<Comic> comics = comicsDump.toList();
@@ -188,10 +221,11 @@ class PreviewNextComic extends StatelessWidget {
                                   width: 100,
                                   fit: BoxFit.cover,
                                   errorBuilder: ((context, error, stackTrace) {
-                                    return Container(
-                                      width: 100,
+                                    return Image.asset(
+                                      'assets/images/comic_no_image.png',
                                       height: 75,
-                                      color: Colors.grey,
+                                      width: 100,
+                                      fit: BoxFit.cover,
                                     );
                                   }),
                                 ),
@@ -212,5 +246,37 @@ class PreviewNextComic extends StatelessWidget {
             return const Text("No Comic available");
           }
         });
+  }
+}
+
+class PreviewNextComicShimmer extends StatelessWidget {
+  const PreviewNextComicShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+        baseColor: Colors.grey.shade300,
+        highlightColor: Colors.grey.shade100,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: const BoxDecoration(color: Colors.black),
+                width: 100,
+                height: 75,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration: const BoxDecoration(color: Colors.black),
+                width: 75,
+                height: 10,
+              ),
+            ],
+          ),
+        ));
   }
 }

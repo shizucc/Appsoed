@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:appsoed/app/routes/app_pages.dart';
 import 'package:appsoed/app/modules/komik/bindings/komik_api_services.dart';
+import 'package:shimmer/shimmer.dart';
 import '../controllers/komik_controller.dart';
 import '../model/komik_model.dart';
 
@@ -129,20 +130,37 @@ class ComicBuilder extends StatelessWidget {
   final ComicAPIService comicAPIService = ComicAPIService();
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(KomikController());
     return FutureBuilder(
         future: comicAPIService.getComics(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Text("Something went wrong");
+            return const ComicLoadError();
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const ComicsViewShimmer();
           } else if (snapshot.hasData) {
             return ComicsView(comics: snapshot.data);
           } else {
-            return const Text("No Comic available");
+            return const Text("Komik tidak tersedia");
           }
         });
+  }
+}
+
+class ComicLoadError extends StatelessWidget {
+  const ComicLoadError({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.asset("assets/images/error.png")),
+      const Text(
+        "Terjadi Kesalahan",
+        style: TextStyle(fontSize: 20),
+      )
+    ]);
+    ;
   }
 }
 
@@ -161,6 +179,79 @@ class ComicsView extends StatelessWidget {
             comic: comic,
           );
         }).toList());
+  }
+}
+
+class ComicsViewShimmer extends StatelessWidget {
+  const ComicsViewShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ComicViewShimmer(),
+                SizedBox(
+                  width: 20,
+                ),
+                ComicViewShimmer()
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ComicViewShimmer(),
+                SizedBox(
+                  width: 20,
+                ),
+                ComicViewShimmer()
+              ],
+            ),
+          ]),
+    );
+  }
+}
+
+class ComicViewShimmer extends StatelessWidget {
+  const ComicViewShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            width: Get.height / 4 * (3 / 4),
+            height: Get.height / 4,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            width: Get.height / 6 * (3 / 4),
+            height: 20,
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -186,6 +277,9 @@ class ComicView extends StatelessWidget {
                 height: 120,
                 width: 90,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset('assets/images/comic_no_image.png');
+                },
               )),
         ),
         const SizedBox(
@@ -193,7 +287,7 @@ class ComicView extends StatelessWidget {
         ),
         Text(
           "${comic.title}",
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: const TextStyle(fontWeight: FontWeight.w500),
         )
       ]),
     );

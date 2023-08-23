@@ -1,12 +1,15 @@
+import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:appsoed/app/modules/komik/bindings/komik_api_services.dart';
-import 'dart:math';
 import 'package:appsoed/app/modules/komik/model/komik_model.dart';
 
 class ScrollControllerX extends GetxController {
   RxDouble scrollPosition = 0.0.obs;
   RxDouble maxPosition = 0.0.obs;
   RxBool bottomNavigationBarVisible = false.obs;
+
+  Rx<ScrollController> scrollController = ScrollController().obs;
 
   updateScroll(double newPosition) {
     scrollPosition.value = newPosition;
@@ -15,6 +18,15 @@ class ScrollControllerX extends GetxController {
 
   initMaxPosition(double newPosition) {
     maxPosition.value = newPosition;
+  }
+
+  initScrollController(ScrollController myScrollController) {
+    scrollController.value = myScrollController;
+  }
+
+  void toUpScroll() {
+    scrollController.value.animateTo(0,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
   }
 
   void updateStickyContainerVisibility() {
@@ -29,7 +41,7 @@ class ComicController extends GetxController {
 
   initComic(Comic comic) {
     currentComic.value = comic;
-    print(currentComic.value.title);
+    update();
   }
 
   Future<List<Comic>> getPreviewComicData(Comic comicException) async {
