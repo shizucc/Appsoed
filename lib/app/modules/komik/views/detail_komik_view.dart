@@ -15,77 +15,110 @@ class DetailComicView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(CupertinoIcons.back),
-          ),
-          title: Text("${comic.title}"),
-        ),
-        body: SingleChildScrollView(
+        body: CustomScrollView(
           controller: scrollController
             ..addListener(() {
               scrollControllerX
                   .initMaxPosition(scrollController.position.maxScrollExtent);
               scrollControllerX.updateScroll(scrollController.position.pixels);
             }),
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 35, vertical: 30),
-                child: ComicContent(comicImages: comic.comicImage),
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              pinned: false,
+              snap: true,
+              leading: GestureDetector(
+                  onTap: () => {Navigator.pop(context)},
+                  child: const Icon(
+                      size: 30, CupertinoIcons.back, color: Colors.white)
+                  // ,
+                  ),
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text('${comic.title}'),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 25),
+                      child: ComicContent(comicImages: comic.comicImage),
+                    ),
+                    const SizedBox(
+                      height: 75,
+                    ),
+                  ],
+                ),
+              )
+            ]))
+          ],
         ),
-        bottomNavigationBar:
-            StickyBottomContainer(scrollControllerX: scrollControllerX),
+        bottomNavigationBar: StickyBottomContainer(
+          scrollControllerX: scrollControllerX,
+          comic: comic,
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            double scrollPosition = scrollControllerX.scrollPosition.value;
-            double max = scrollControllerX.maxPosition.value;
-            print('Current : ${scrollPosition}');
-            print('max : ${max}');
+            scrollController.animateTo(0,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut);
           },
-          child: Icon(Icons.home),
+          child: Icon(CupertinoIcons.chevron_up),
         ));
   }
 }
 
 class StickyBottomContainer extends GetView {
   final ScrollControllerX scrollControllerX;
-
-  const StickyBottomContainer({super.key, required this.scrollControllerX});
+  final Comic comic;
+  const StickyBottomContainer(
+      {super.key, required this.scrollControllerX, required this.comic});
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Visibility(
-        visible: scrollControllerX.bottomNavigationBarVisible.value,
-        child: Container(
-            color: Colors.blue, // Ganti dengan warna atau dekorasi yang sesuai
-            height: 50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Baca Juga"),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(children: [
-                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
-                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
-                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
-                    Placeholder(fallbackHeight: 50, fallbackWidth: 50),
-                  ]),
+      return AnimatedOpacity(
+        opacity: scrollControllerX.bottomNavigationBarVisible.value ? 1.0 : 0.0,
+        duration: const Duration(milliseconds: 300),
+        child: Visibility(
+          visible: scrollControllerX.bottomNavigationBarVisible.value,
+          child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 4,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
                 )
-              ],
-            )),
+              ]), // Ganti dengan warna atau dekorasi yang sesuai
+              height: 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Baca Juga",
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(children: [
+                        PreviewNextComic(
+                          comicException: comic,
+                        )
+                      ]),
+                    ),
+                  )
+                ],
+              )),
+        ),
       );
     });
   }
@@ -120,67 +153,25 @@ class ComicContent extends StatelessWidget {
   }
 }
 
-class ReadNextComic extends StatelessWidget {
-  const ReadNextComic({super.key});
-
+class PreviewNextComic extends StatelessWidget {
+  PreviewNextComic({super.key, required this.comicException});
+  final Comic comicException;
+  final comicController = ComicController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Container(
-        child: Column(
-          children: [
-            Text("Baca juga"),
-            SizedBox(
-              height: 10,
-            ),
-            ListView(
-              children: [],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Placeholder(
-                      fallbackHeight: 80,
-                      fallbackWidth: 60,
-                    ),
-                    Text("Judul")
-                  ],
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Column(
-                  children: [
-                    Placeholder(
-                      fallbackHeight: 80,
-                      fallbackWidth: 60,
-                    ),
-                    Text("Judul")
-                  ],
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Column(
-                  children: [
-                    Placeholder(
-                      fallbackHeight: 80,
-                      fallbackWidth: 60,
-                    ),
-                    Text("Judul")
-                  ],
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: comicController.getPreviewComicData(comicException),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Text("Something went wrong");
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasData) {
+            print(snapshot.data);
+            return Container();
+          } else {
+            return const Text("No Comic available");
+          }
+        });
   }
 }

@@ -17,19 +17,17 @@ class KomikView extends GetView<KomikController> {
         controller: controller.scrollController,
         slivers: [
           SliverAppBar(
-              leading: Container(
-                child: InkWell(
-                    onTap: () => {Navigator.pop(context)},
-                    child: Icon(
-                        size: 30,
-                        CupertinoIcons.back,
-                        color: controller.appBarState.value ==
-                                (AppBarState.expanded)
-                            ? Colors.white
-                            : Colors.black)
-                    // ,
-                    ),
-              ),
+              leading: GestureDetector(
+                  onTap: () => {Navigator.pop(context)},
+                  child: Icon(
+                      size: 30,
+                      CupertinoIcons.back,
+                      color:
+                          controller.appBarState.value == (AppBarState.expanded)
+                              ? Colors.white
+                              : Colors.black)
+                  // ,
+                  ),
               title: Obx(() {
                 return controller.appBarState.value == (AppBarState.collapsed)
                     ? const Text("Komik")
@@ -142,7 +140,7 @@ class ComicBuilder extends StatelessWidget {
           } else if (snapshot.hasData) {
             return ComicsView(comics: snapshot.data);
           } else {
-            return const Text("No Comic data available");
+            return const Text("No Comic available");
           }
         });
   }
