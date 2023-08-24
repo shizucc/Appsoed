@@ -1,15 +1,27 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../model/komik_model.dart';
+enum AppBarState { expanded, collapsed }
 
 class KomikController extends GetxController {
-  Future getDataLocal(BuildContext context) async {
-    final assetBundle = DefaultAssetBundle.of(context);
-    final data = await assetBundle.loadString('assets/data/data_komik.json');
-    final List body = json.decode(data)['data'];
-    return body.map((e) => KomikModel.fromMap(e)).toList();
+  final ScrollController scrollController = ScrollController();
+  var appBarState = Rx<AppBarState>(AppBarState.expanded);
+
+  @override
+  void onInit() {
+    super.onInit();
+    scrollController.addListener(handleScroll);
+  }
+
+  void handleScroll() {
+    if (scrollController.offset > 130 &&
+        appBarState.value == AppBarState.expanded) {
+      appBarState.value = AppBarState.collapsed;
+      update();
+    } else if (scrollController.offset <= 130 &&
+        appBarState.value == AppBarState.collapsed) {
+      appBarState.value = AppBarState.expanded;
+      update();
+    }
   }
 }

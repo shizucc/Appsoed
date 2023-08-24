@@ -33,7 +33,7 @@ def keystoreProperties = new Properties()
    }
 
 android {
-    namespace "com.bem_unsoed.appsoed"
+    namespace 'com.bem_unsoed.appsoed'
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

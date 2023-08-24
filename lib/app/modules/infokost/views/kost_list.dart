@@ -6,7 +6,6 @@ import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
 Future<dynamic> getKosts() async {
   const url = 'https://api.bem-unsoed.com/api/kost';
   final response = await http.get(Uri.parse(url));
@@ -23,8 +22,6 @@ class ListKost extends StatefulWidget {
   @override
   State<ListKost> createState() => _ListKostState();
 }
-
-enum AppBarState { expanded, collapsed }
 
 class _ListKostState extends State<ListKost> {
   final ScrollController _scrollController = ScrollController();
@@ -45,12 +42,12 @@ class _ListKostState extends State<ListKost> {
   }
 
   void _handleScroll() {
-    if (_scrollController.offset > 150 &&
+    if (_scrollController.offset > 130 &&
         _appBarState == AppBarState.expanded) {
       setState(() {
         _appBarState = AppBarState.collapsed;
       });
-    } else if (_scrollController.offset <= 150 &&
+    } else if (_scrollController.offset <= 130 &&
         _appBarState == AppBarState.collapsed) {
       setState(() {
         _appBarState = AppBarState.expanded;
@@ -65,25 +62,24 @@ class _ListKostState extends State<ListKost> {
         controller: _scrollController,
         slivers: [
           SliverAppBar(
+              backgroundColor: const Color.fromRGBO(241, 239, 239, 1),
+              elevation: 1,
               leading: Container(
-                margin: const EdgeInsets.only(left: 10),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _appBarState == AppBarState.expanded
-                        ? const Color.fromARGB(255, 255, 255, 255)
-                        : Colors.transparent),
-                child: InkWell(
+                child: GestureDetector(
                   onTap: () => {Navigator.pop(context)},
                   child: Icon(
                       size: 30,
                       CupertinoIcons.back,
-                      color: _appBarState == AppBarState.expanded
-                          ? const Color.fromRGBO(255, 183, 49, 1)
-                          : Colors.black),
+                      color: _appBarState == AppBarState.collapsed
+                          ? Colors.black
+                          : Colors.white),
                 ),
               ),
               title: _appBarState == AppBarState.collapsed
-                  ? const Text("Info Kost")
+                  ? const Text(
+                      "Info Kost",
+                      style: TextStyle(color: Colors.black),
+                    )
                   : Container(),
               pinned: true,
               snap: false,
@@ -330,22 +326,26 @@ class Kost extends StatelessWidget {
               child: hasImages
                   ? Image.network(
                       "https://api.bem-unsoed.com/api/kost/image/${imageList[0]}",
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     )
                   : Image.asset('assets/images/kost_no_image.png',
-                      fit: BoxFit.fill),
+                      fit: BoxFit.cover),
             ),
             const SizedBox(
               height: 5,
             ),
             Container(
-              padding: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
+              padding: const EdgeInsets.only(
+                  bottom: 20, left: 15, right: 15, top: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     name.capitalize(),
-                    style: const TextStyle(fontSize: 22),
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -354,38 +354,39 @@ class Kost extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              CupertinoIcons.placemark,
-                              color: Color.fromRGBO(0, 0, 0, 0.5),
+                            Row(
+                              children: [
+                                const Icon(
+                                  CupertinoIcons.placemark,
+                                  color: Color.fromRGBO(0, 0, 0, 0.5),
+                                  size: 15,
+                                ),
+                                Text(
+                                  region.capitalize(),
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w300,
+                                      color: Color.fromRGBO(0, 0, 0, 0.5)),
+                                ),
+                              ],
                             ),
-                            Text(
-                              region.capitalize(),
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color.fromRGBO(0, 0, 0, 0.5)),
+                            const SizedBox(
+                              height: 10,
                             ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Wrap(
-                          runSpacing: 7,
-                          children: [
-                            type == 'l'
-                                ? const TypeKost(type: "L")
-                                : Container(),
-                            type == 'p'
-                                ? const TypeKost(type: "P")
-                                : Container(),
-                            type == 'campur'
-                                ? const TypeKost(type: "Campur")
-                                : Container()
-                          ],
-                        )
+                            Wrap(
+                              runSpacing: 7,
+                              children: [
+                                type == 'l'
+                                    ? const TypeKost(type: "L")
+                                    : Container(),
+                                type == 'p'
+                                    ? const TypeKost(type: "P")
+                                    : Container(),
+                                type == 'campur'
+                                    ? const TypeKost(type: "Campur")
+                                    : Container()
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -393,15 +394,24 @@ class Kost extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const Text("Mulai dari "),
                             hasPrice
-                                ? Text(
-                                    CurrencyFormat.convertToIdr(
-                                        priceStart, 0),
-                                    style: const TextStyle(
-                                        fontSize: 14,
+                                ? const Text(
+                                    "Mulai dari ",
+                                    style: TextStyle(
+                                        fontSize: 13,
                                         color: Color.fromRGBO(0, 0, 0, 0.7),
                                         fontWeight: FontWeight.w300),
+                                  )
+                                : Container(),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            hasPrice
+                                ? Text(
+                                    CurrencyFormat.convertToIdr(priceStart, 0),
+                                    style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
                                   )
                                 : Container(),
                           ])
