@@ -12,7 +12,6 @@ class TodolistView extends GetView<TodolistController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (controller.todoController.text.isNotEmpty) {
-            var c = controller.addNote();
           } else {
             Get.snackbar(
               'Error',

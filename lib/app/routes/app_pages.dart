@@ -30,7 +30,7 @@ import '../views/views/media_partner_view.dart';
 import '../views/views/medpart_page_2.dart';
 import '../views/views/profile_kabinet_view.dart';
 import '../views/views/splash_screen_view.dart';
-import '../modules/layanan_unsoed/screens_layanan/home_layanan.dart';
+// import '../modules/layanan_unsoed/screens_layanan/home_layanan.dart';
 
 part 'app_routes.dart';
 
@@ -105,7 +105,8 @@ class AppPages {
     ),
     GetPage(
       name: Routes.DETAIL_KOMIK,
-      page: () => DetailKomikView(),
+      page: () => DetailComicView(),
+      binding: KomikBinding(),
     ),
     GetPage(
       name: Routes.MEDIA_PARTNER,
@@ -129,10 +130,10 @@ class AppPages {
       page: () => const TodolistView(),
       binding: TodolistBinding(),
     ),
-    GetPage(
-      name: Routes.LAYANAN_UNSOED,
-      page: () => const LayananUnsoed(),
-    ),
+    // GetPage(
+    //   name: Routes.LAYANAN_UNSOED,
+    //   page: () {}
+    // ),
     GetPage(
       name: Routes.LAPOR,
       page: () => const LaporPage(),
