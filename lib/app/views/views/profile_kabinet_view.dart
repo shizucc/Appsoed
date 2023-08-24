@@ -117,8 +117,7 @@ class ProfileKabinetView extends GetView {
 
                   // NOTE: CONTACT US
                   Container(
-                    margin:
-                        const EdgeInsets.only(left: 26, top: 28, bottom: 50),
+                    margin: const EdgeInsets.only(top: 30, bottom: 40),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -130,6 +129,9 @@ class ProfileKabinetView extends GetView {
                             fontWeight: FontWeight.w500,
                             color: Color(0xff373737),
                           ),
+                        ),
+                        const SizedBox(
+                          height: 10,
                         ),
                         Center(
                           child: ElevatedButton(

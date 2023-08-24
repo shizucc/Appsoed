@@ -18,20 +18,26 @@ class KomikView extends GetView<KomikController> {
         controller: controller.scrollController,
         slivers: [
           SliverAppBar(
+              backgroundColor: Colors.white,
               leading: GestureDetector(
                   onTap: () => {Navigator.pop(context)},
-                  child: Icon(
-                      size: 30,
-                      CupertinoIcons.back,
-                      color:
-                          controller.appBarState.value == (AppBarState.expanded)
-                              ? Colors.white
-                              : Colors.black)
+                  child: Obx(() {
+                    return Icon(
+                        size: 30,
+                        CupertinoIcons.back,
+                        color: controller.appBarState.value ==
+                                (AppBarState.expanded)
+                            ? Colors.white
+                            : Colors.black);
+                  })
                   // ,
                   ),
               title: Obx(() {
                 return controller.appBarState.value == (AppBarState.collapsed)
-                    ? const Text("Komik")
+                    ? const Text(
+                        "Komik",
+                        style: TextStyle(color: Colors.black),
+                      )
                     : Container();
               }),
               pinned: true,
@@ -160,7 +166,6 @@ class ComicLoadError extends StatelessWidget {
         style: TextStyle(fontSize: 20),
       )
     ]);
-    ;
   }
 }
 

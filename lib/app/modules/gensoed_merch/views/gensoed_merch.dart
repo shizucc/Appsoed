@@ -14,20 +14,26 @@ class GensoedMerchView extends StatelessWidget {
     final gensoedMerchAPIService = GensoedMerchAPIService();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
           },
-          child: const Icon(CupertinoIcons.back),
+          child: const Icon(
+            CupertinoIcons.back,
+            color: Colors.black,
+          ),
         ),
-        title: const Text("Gensoed Merch"),
+        title: const Text(
+          "Gensoed Merch",
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: SingleChildScrollView(
           child: FutureBuilder(
               future: gensoedMerchAPIService.getGensoedMerchs(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  print(snapshot.error);
                   return const MerchsError();
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
@@ -59,8 +65,8 @@ class Merchs extends StatelessWidget {
     return Wrap(
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
-      spacing: 20,
-      runSpacing: 20,
+      spacing: 10,
+      runSpacing: 10,
       children: gensoedMerchs.map((merch) {
         return Merch(
           merch: merch,
@@ -90,19 +96,19 @@ class Merch extends StatelessWidget {
           gensoedMerchController.openStore(merch.productLink.toString());
         },
         child: Container(
-          width: Get.height / 5,
-          height: Get.height / 3.3,
+          width: 150,
+          height: 240,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-          ),
+              border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.1)),
+              borderRadius: BorderRadius.circular(10)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
                 gensoedMerchAPIService.getImageUri(merch.image),
                 fit: BoxFit.cover,
-                height: Get.height / 5,
-                width: Get.height / 5,
+                height: 150,
+                width: 150,
                 errorBuilder: (context, error, stackTrace) {
                   return Image.asset(
                     'assets/images/gensoedmerch_no_image.png',
@@ -133,9 +139,14 @@ class Merch extends StatelessWidget {
                             priceStart,
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           )
-                        : Text('$priceStart - $priceEnd',
-                            style:
-                                const TextStyle(fontWeight: FontWeight.w500)),
+                        : Text(
+                            '$priceStart - $priceEnd',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                   ],
                 ),
               ))

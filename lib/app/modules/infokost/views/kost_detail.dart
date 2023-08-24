@@ -140,6 +140,7 @@ class _DetailKostState extends State<DetailKost> {
         controller: _scrollController,
         slivers: [
           SliverAppBar(
+            backgroundColor: Colors.white,
             title: _appBarState == AppBarState.collapsed
                 ? FutureBuilder(
                     future: displayKost(),
@@ -147,7 +148,11 @@ class _DetailKostState extends State<DetailKost> {
                       if (snapshot.hasData) {
                         final String nameDump = snapshot.data['name'];
                         final String name = nameDump.capitalize();
-                        return Text(name);
+                        return Text(
+                          name,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 17),
+                        );
                       } else if (snapshot.hasError) {
                         return Container();
                       } else {
@@ -160,11 +165,9 @@ class _DetailKostState extends State<DetailKost> {
             floating: false,
             stretch: true,
             leading: Container(
-              child: InkWell(
+              child: GestureDetector(
                 onTap: () => {Navigator.pop(context)},
-                child: Icon(
-                    size: 30,
-                    CupertinoIcons.back,
+                child: Icon(CupertinoIcons.back,
                     color: _appBarState == AppBarState.expanded
                         ? Colors.white
                         : Colors.black),
@@ -185,12 +188,6 @@ class _DetailKostState extends State<DetailKost> {
                               future: displayKost(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  // final imgDump = snapshot.data['galeri'];
-                                  // List<String> images = imgDump
-                                  //     .map<String>((imgData) =>
-                                  //         imgData['galeri'].toString())
-                                  //     .toList();
-
                                   List images = snapshot.data['kost_images'];
                                   // Convert JSON to array
 
@@ -199,15 +196,9 @@ class _DetailKostState extends State<DetailKost> {
                                           (image) => image['image'].toString())
                                       .toList();
 
-                                  // final img =
-                                  //     snapshot.data['images'].length != 0
-                                  //         ? snapshot.data['images']
-                                  //         : ['assets/images/kost.jpg'];
-
                                   final String nameDump = snapshot.data['name'];
                                   final name = nameDump.capitalize();
-                                  // final List images =
-                                  //     img.map((e) => e.toString()).toList();
+
                                   return CarouselSlider(
                                     options: CarouselOptions(
                                         height: height,
@@ -235,18 +226,24 @@ class _DetailKostState extends State<DetailKost> {
                                                                 currentImage:
                                                                     _currentImg)));
                                               },
-                                              child: Center(
-                                                  child: (imageList.isNotEmpty)
-                                                      ? Image.network(
-                                                          "https://api.bem-unsoed.com/api/kost/image/$item",
-                                                          fit: BoxFit.cover,
-                                                          height: height,
-                                                        )
-                                                      : Image.asset(
-                                                          'asset/images/kost_no_image.png',
-                                                          fit: BoxFit.cover,
-                                                          height: height,
-                                                        )),
+                                              child: (imageList.isNotEmpty)
+                                                  ? Image.network(
+                                                      "https://api.bem-unsoed.com/api/kost/image/$item",
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      fit: BoxFit.cover,
+                                                      // height: height,
+                                                    )
+                                                  : Image.asset(
+                                                      'asset/images/kost_no_image.png',
+                                                      fit: BoxFit.cover,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                    ),
                                             ))
                                         .toList(),
                                   );
@@ -330,10 +327,10 @@ class _DetailKostState extends State<DetailKost> {
                             Text(
                               name,
                               style: const TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 20),
+                                  fontWeight: FontWeight.w500, fontSize: 18),
                             ),
                             const SizedBox(
-                              height: 7,
+                              height: 10,
                             ),
                             //Jenis
                             Row(
@@ -350,12 +347,15 @@ class _DetailKostState extends State<DetailKost> {
                               ],
                             ),
                             const SizedBox(
-                              height: 5,
+                              height: 10,
                             ),
                             // Alamat
                             Row(
                               children: [
-                                const Icon(CupertinoIcons.placemark),
+                                const Icon(
+                                  CupertinoIcons.placemark,
+                                  color: Color.fromRGBO(0, 0, 0, 0.5),
+                                ),
                                 const SizedBox(
                                   width: 7,
                                 ),
@@ -363,11 +363,15 @@ class _DetailKostState extends State<DetailKost> {
                                   child: Text(
                                     '$address',
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 15),
+                                        fontWeight: FontWeight.w400,
+                                        color: Color.fromRGBO(0, 0, 0, 0.5),
+                                        fontSize: 14),
                                   ),
                                 )
                               ],
+                            ),
+                            const SizedBox(
+                              height: 5,
                             ),
                             const Divider(),
 
@@ -377,7 +381,7 @@ class _DetailKostState extends State<DetailKost> {
                               children: [
                                 const Text(
                                   "Fasilitas",
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 17),
                                 ),
                                 facilitiesDump == []
                                     ? const Text(
@@ -398,7 +402,7 @@ class _DetailKostState extends State<DetailKost> {
                                                   Icons.circle,
                                                   size: 5,
                                                   color: Colors.black
-                                                      .withOpacity(0.8),
+                                                      .withOpacity(0.6),
                                                 ),
                                                 const SizedBox(
                                                   width: 7,
@@ -408,10 +412,10 @@ class _DetailKostState extends State<DetailKost> {
                                                     facility,
                                                     style: TextStyle(
                                                       color: Colors.black
-                                                          .withOpacity(0.8),
+                                                          .withOpacity(0.6),
                                                       fontSize: 15,
                                                       fontWeight:
-                                                          FontWeight.w300,
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                 ),
@@ -433,7 +437,7 @@ class _DetailKostState extends State<DetailKost> {
                                     children: [
                                       const Text(
                                         "Lokasi",
-                                        style: TextStyle(fontSize: 18),
+                                        style: TextStyle(fontSize: 17),
                                       ),
                                       const SizedBox(
                                         height: 10,
@@ -471,7 +475,7 @@ class _DetailKostState extends State<DetailKost> {
                                         text: TextSpan(
                                             style: DefaultTextStyle.of(context)
                                                 .style,
-                                            children: [
+                                            children: const [
                                           TextSpan(
                                               text: "Powered by : ",
                                               style: TextStyle(fontSize: 15)),
@@ -542,11 +546,13 @@ class _DetailKostState extends State<DetailKost> {
                               price != 0
                                   ? const Text(
                                       "Mulai dari :",
-                                      style: TextStyle(fontSize: 17),
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Color.fromRGBO(0, 0, 0, 1)),
                                     )
                                   : const Text(
-                                      "Harga Terbaik\nHanya untuk Anda!",
-                                      style: TextStyle(fontSize: 17),
+                                      "Harga Terbaik Hanya untuk Anda!",
+                                      style: TextStyle(fontSize: 15),
                                     ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 0),
@@ -559,6 +565,7 @@ class _DetailKostState extends State<DetailKost> {
                                                 price, 0),
                                             style: const TextStyle(
                                                 fontSize: 18,
+                                                fontWeight: FontWeight.w600,
                                                 color: Color.fromRGBO(
                                                     253, 183, 49, 1)),
                                           )
@@ -568,6 +575,9 @@ class _DetailKostState extends State<DetailKost> {
                               )
                             ],
                           ),
+                        ),
+                        const SizedBox(
+                          width: 10,
                         ),
                         owner != '0'
                             ? ClipRRect(
@@ -635,7 +645,7 @@ class TypeKost extends StatelessWidget {
       child: Text(
         typeIn,
         style:
-            TextStyle(color: color, fontWeight: FontWeight.w300, fontSize: 14),
+            TextStyle(color: color, fontWeight: FontWeight.w300, fontSize: 13),
       ),
     );
   }
@@ -661,7 +671,7 @@ class _ViewImageState extends State<ViewImage> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: InkWell(
+        leading: GestureDetector(
             onTap: () => {Navigator.pop(context)},
             child: const Icon(CupertinoIcons.back, color: Colors.white)),
         title: Text(widget.name, style: const TextStyle(color: Colors.white)),

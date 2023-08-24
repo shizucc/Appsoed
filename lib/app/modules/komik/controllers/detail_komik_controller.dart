@@ -8,11 +8,13 @@ class ScrollControllerX extends GetxController {
   RxDouble scrollPosition = 0.0.obs;
   RxDouble maxPosition = 0.0.obs;
   RxBool bottomNavigationBarVisible = false.obs;
-
+  late double maxPositionDump;
   Rx<ScrollController> scrollController = ScrollController().obs;
 
   updateScroll(double newPosition) {
     scrollPosition.value = newPosition;
+    print(scrollPosition);
+    print(bottomNavigationBarVisible);
     updateStickyContainerVisibility();
   }
 
@@ -30,7 +32,7 @@ class ScrollControllerX extends GetxController {
   }
 
   void updateStickyContainerVisibility() {
-    bool showStickyContainer = scrollPosition.value >= maxPosition.value - 50;
+    bool showStickyContainer = scrollPosition.value >= maxPosition.value - 250;
     bottomNavigationBarVisible.value = showStickyContainer;
     update();
   }
@@ -38,11 +40,17 @@ class ScrollControllerX extends GetxController {
 
 class ComicController extends GetxController {
   Rx<Comic> currentComic = Comic().obs;
+  // RxList<Comic> comicPreviewList = [Comic()].obs;
 
   initComic(Comic comic) {
     currentComic.value = comic;
     update();
   }
+
+  // Future<void> initComicPreviewList(Comic comic) async {
+  //   List<Comic> comicList = await getPreviewComicData(comic);
+  //   comicPreviewList.value = comicList;
+  // }
 
   Future<List<Comic>> getPreviewComicData(Comic comicException) async {
     List<Comic> comicListDump = await ComicAPIService().getComics();
@@ -57,4 +65,8 @@ class ComicController extends GetxController {
 
     return comicList;
   }
+
+  // Future<List<Comic>> getComicList() async {
+  //   return comicPreviewList;
+  // }
 }

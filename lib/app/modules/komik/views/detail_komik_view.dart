@@ -17,9 +17,12 @@ class DetailComicView extends GetView {
   Widget build(BuildContext context) {
     comicController.initComic(comic);
     scrollControllerX.initScrollController(scrollController);
+    // comicController.initComicPreviewList(comic);
     return Obx(
       () => Scaffold(
+          backgroundColor: Colors.white,
           body: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             controller: scrollController
               ..addListener(() {
                 scrollControllerX
@@ -29,17 +32,18 @@ class DetailComicView extends GetView {
               }),
             slivers: [
               SliverAppBar(
+                backgroundColor: Colors.white,
                 floating: true,
                 pinned: false,
                 snap: true,
                 leading: GestureDetector(
                     onTap: () => {Navigator.pop(context)},
-                    child: const Icon(
-                        size: 30, CupertinoIcons.back, color: Colors.white)
+                    child: const Icon(CupertinoIcons.back, color: Colors.black)
                     // ,
                     ),
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text('${comicController.currentComic.value.title}'),
+                title: Text(
+                  '${comicController.currentComic.value.title}',
+                  style: const TextStyle(color: Colors.black, fontSize: 17),
                 ),
               ),
               SliverList(
@@ -55,7 +59,7 @@ class DetailComicView extends GetView {
                                 comicController.currentComic.value.comicImage),
                       ),
                       const SizedBox(
-                        height: 125,
+                        height: 75,
                       ),
                     ],
                   ),
@@ -69,10 +73,15 @@ class DetailComicView extends GetView {
             comicController: comicController,
           ),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.white,
+            mini: true,
             onPressed: () {
               scrollControllerX.toUpScroll();
             },
-            child: const Icon(CupertinoIcons.chevron_up),
+            child: const Icon(
+              CupertinoIcons.chevron_up,
+              color: Colors.black,
+            ),
           )),
     );
   }
@@ -92,42 +101,39 @@ class StickyBottomContainer extends GetView {
   Widget build(BuildContext context) {
     return Obx(() {
       return AnimatedOpacity(
+        curve: Curves.easeInOut,
         opacity: scrollControllerX.bottomNavigationBarVisible.value ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 1000),
         child: Visibility(
           visible: scrollControllerX.bottomNavigationBarVisible.value,
           child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 4,
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            decoration: const BoxDecoration(
+                color: Colors
+                    .transparent), // Ganti dengan warna atau dekorasi yang sesuai
+            height: 150,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Baca Juga",
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: PreviewNextComic(
+                        comicException: comic,
+                        comicController: comicController,
+                      )),
                 )
-              ]), // Ganti dengan warna atau dekorasi yang sesuai
-              height: 150,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Baca Juga",
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: PreviewNextComic(
-                          comicException: comic,
-                          comicController: comicController,
-                        )),
-                  )
-                ],
-              )),
+              ],
+            ),
+          ),
         ),
       );
     });

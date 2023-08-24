@@ -62,19 +62,24 @@ class _ListKostState extends State<ListKost> {
         controller: _scrollController,
         slivers: [
           SliverAppBar(
+              backgroundColor: const Color.fromRGBO(241, 239, 239, 1),
+              elevation: 1,
               leading: Container(
-                child: InkWell(
+                child: GestureDetector(
                   onTap: () => {Navigator.pop(context)},
                   child: Icon(
                       size: 30,
                       CupertinoIcons.back,
-                      color: _appBarState == AppBarState.expanded
-                          ? Colors.white
+                      color: _appBarState == AppBarState.collapsed
+                          ? Colors.black
                           : Colors.white),
                 ),
               ),
               title: _appBarState == AppBarState.collapsed
-                  ? const Text("Info Kost")
+                  ? const Text(
+                      "Info Kost",
+                      style: TextStyle(color: Colors.black),
+                    )
                   : Container(),
               pinned: true,
               snap: false,
@@ -321,10 +326,10 @@ class Kost extends StatelessWidget {
               child: hasImages
                   ? Image.network(
                       "https://api.bem-unsoed.com/api/kost/image/${imageList[0]}",
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     )
                   : Image.asset('assets/images/kost_no_image.png',
-                      fit: BoxFit.fill),
+                      fit: BoxFit.cover),
             ),
             const SizedBox(
               height: 5,
@@ -337,9 +342,9 @@ class Kost extends StatelessWidget {
                 children: [
                   Text(
                     name.capitalize(),
-                    style: const TextStyle(fontSize: 22),
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Row(
@@ -354,11 +359,12 @@ class Kost extends StatelessWidget {
                                 const Icon(
                                   CupertinoIcons.placemark,
                                   color: Color.fromRGBO(0, 0, 0, 0.5),
+                                  size: 15,
                                 ),
                                 Text(
                                   region.capitalize(),
                                   style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w300,
                                       color: Color.fromRGBO(0, 0, 0, 0.5)),
                                 ),
@@ -388,7 +394,15 @@ class Kost extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            hasPrice ? const Text("Mulai dari ") : Container(),
+                            hasPrice
+                                ? const Text(
+                                    "Mulai dari ",
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: Color.fromRGBO(0, 0, 0, 0.7),
+                                        fontWeight: FontWeight.w300),
+                                  )
+                                : Container(),
                             const SizedBox(
                               height: 5,
                             ),
@@ -396,9 +410,8 @@ class Kost extends StatelessWidget {
                                 ? Text(
                                     CurrencyFormat.convertToIdr(priceStart, 0),
                                     style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Color.fromRGBO(0, 0, 0, 0.7),
-                                        fontWeight: FontWeight.w300),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
                                   )
                                 : Container(),
                           ])
