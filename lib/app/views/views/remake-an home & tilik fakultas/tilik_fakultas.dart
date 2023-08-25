@@ -132,7 +132,17 @@ class Fakultas extends StatelessWidget {
                               fontSize: 23, fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 5),
-                        Text(name)
+                        Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 150,
+                          ),
+                          child: Text(
+                            name,
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
