@@ -104,9 +104,9 @@ class Fakultas extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: const Color.fromRGBO(241, 239, 239, 1),
+          color: const Color.fromRGBO(255, 255, 255, 1),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: Column(
           children: [
             Row(
@@ -132,7 +132,17 @@ class Fakultas extends StatelessWidget {
                               fontSize: 23, fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 5),
-                        Text(name)
+                        Container(
+                          constraints: const BoxConstraints(
+                            maxWidth: 150,
+                          ),
+                          child: Text(
+                            name,
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -234,10 +244,35 @@ class _TilikFakultasState extends State<TilikFakultas> {
               ],
             )),
         Container(
-            padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
-            child: const Column(
-              children: <Widget>[ShowData()],
-            ))
+            color: const Color.fromRGBO(241, 239, 239, 1),
+            child: Stack(children: [
+              Container(
+                  color: _appBarState == AppBarState.expanded
+                      ? const Color.fromRGBO(255, 183, 49, 1)
+                      : Colors.transparent,
+                  height: 60),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Container(
+                      alignment: Alignment.topCenter,
+                      // padding: const EdgeInsets.only(left: 20, right: 20),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: _appBarState == AppBarState.expanded
+                              ? const Color.fromRGBO(241, 239, 239, 1)
+                              : const Color.fromRGBO(241, 239, 239, 1)),
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(children: [
+                            Container(
+                                padding: const EdgeInsets.only(
+                                    top: 30, left: 10, right: 10),
+                                child: const Column(
+                                  children: <Widget>[ShowData()],
+                                ))
+                          ]))))
+            ]))
       ]))
     ]));
   }
