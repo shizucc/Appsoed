@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 Future<dynamic> fetchData(idFakultas) async {
   final response = await http
-      .get(Uri.parse('https://api.bem-unsoed.com/api/faculty/${idFakultas}'));
+      .get(Uri.parse('https://api.bem-unsoed.com/api/faculty/$idFakultas'));
   if (response.statusCode == 200) {
     return jsonDecode(response.body);
   } else {
@@ -88,7 +88,7 @@ class _DetailFakultasState extends State<DetailFakultas> {
                       return Container(
                           padding: const EdgeInsets.only(
                               top: 30, left: 10, right: 10),
-                          child: Column(
+                          child: const Column(
                             children: <Widget>[CircularProgressIndicator()],
                           ));
                     } else if (snapshot.hasError) {
@@ -100,18 +100,18 @@ class _DetailFakultasState extends State<DetailFakultas> {
                       return Stack(
                         children: [
                           Image.network(
-                            "https://api.bem-unsoed.com/api/faculty/image/${image}",
+                            "https://api.bem-unsoed.com/api/faculty/image/$image",
                             fit: BoxFit.cover,
                             height: 250,
                           ),
                           Container(
-                              margin: EdgeInsets.only(top: 200),
-                              padding: EdgeInsets.only(left: 10),
+                              margin: const EdgeInsets.only(top: 200),
+                              padding: const EdgeInsets.only(left: 10),
                               // height: MediaQuery.of(context).size.height,
                               height: 100,
                               width: MediaQuery.of(context).size.width,
                               alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
@@ -123,7 +123,7 @@ class _DetailFakultasState extends State<DetailFakultas> {
                               )),
                               child: Text(
                                 name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 30,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600),
@@ -166,7 +166,7 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                       return Container(
                                           padding: const EdgeInsets.only(
                                               top: 30, left: 10, right: 10),
-                                          child: Column(
+                                          child: const Column(
                                             children: <Widget>[
                                               CircularProgressIndicator()
                                             ],
@@ -181,19 +181,19 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                           dataFakultas['location'] ?? '';
                                       final String description =
                                           dataFakultas['description'] ?? '';
-                                      final String instagram_link =
+                                      final String instagramLink =
                                           dataFakultas['instagram_link'] ?? '';
-                                      final String youtube_link =
+                                      final String youtubeLink =
                                           dataFakultas['youtube_link'] ?? '';
-                                      final String line_link =
+                                      final String lineLink =
                                           dataFakultas['line_link'] ?? '';
-                                      final String twitter_link =
+                                      final String twitterLink =
                                           dataFakultas['twitter_link'] ?? '';
-                                      final String spotify_link =
+                                      final String spotifyLink =
                                           dataFakultas['spotify_link'] ?? '';
-                                      final String tiktok_link =
+                                      final String tiktokLink =
                                           dataFakultas['tiktok_link'] ?? '';
-                                      final String website_link =
+                                      final String websiteLink =
                                           dataFakultas['website_link'] ?? '';
 
                                       return Container(
@@ -206,7 +206,7 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 const SizedBox(height: 20),
-                                                Text(
+                                                const Text(
                                                   "Lokasi Fakultas",
                                                   style: TextStyle(
                                                       fontSize: 21,
@@ -229,20 +229,20 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                                     )),
                                                 const SizedBox(height: 30),
                                                 Text(
-                                                  "Tentang ${name}",
-                                                  style: TextStyle(
+                                                  "Tentang $name",
+                                                  style: const TextStyle(
                                                       fontSize: 21,
                                                       fontWeight:
                                                           FontWeight.w600),
                                                 ),
                                                 const SizedBox(height: 10),
                                                 Text(
-                                                  "${description}",
+                                                  description,
                                                   style:
-                                                      TextStyle(fontSize: 15),
+                                                      const TextStyle(fontSize: 15),
                                                 ),
                                                 const SizedBox(height: 20),
-                                                Text(
+                                                const Text(
                                                   "Media Sosial",
                                                   style: TextStyle(
                                                       fontSize: 21,
@@ -255,66 +255,66 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                                     GestureDetector(
                                                       onTap: () => {
                                                         openSomething(
-                                                            instagram_link)
+                                                            instagramLink)
                                                       },
                                                       child: Image.network(
                                                         "https://firebasestorage.googleapis.com/v0/b/react-native-crud-fireba-ea6c9.appspot.com/o/Appsoed%2FIcon%2FInstagram.png?alt=media&token=dab6d85e-b813-4024-85fa-40d9c4fe2cf9",
-                                                        width: 55,
+                                                        width: 37,
                                                       ),
                                                     ),
                                                     GestureDetector(
                                                       onTap: () => {
                                                         openSomething(
-                                                            youtube_link)
+                                                            youtubeLink)
                                                       },
                                                       child: Image.network(
                                                         "https://firebasestorage.googleapis.com/v0/b/react-native-crud-fireba-ea6c9.appspot.com/o/Appsoed%2FIcon%2FYouTube.png?alt=media&token=37bc4981-01d7-4af1-b0bd-3bbbb5e7dc41",
-                                                        width: 55,
+                                                        width: 37,
                                                       ),
                                                     ),
                                                     GestureDetector(
                                                       onTap: () => {
-                                                        openSomething(line_link)
+                                                        openSomething(lineLink)
                                                       },
                                                       child: Image.network(
                                                         "https://firebasestorage.googleapis.com/v0/b/react-native-crud-fireba-ea6c9.appspot.com/o/Appsoed%2FIcon%2FLine.png?alt=media&token=527bf76b-d1a7-466f-9f54-8f7278bc290d",
-                                                        width: 55,
+                                                        width: 37,
                                                       ),
                                                     ),
                                                     GestureDetector(
                                                       onTap: () => {
                                                         openSomething(
-                                                            twitter_link)
+                                                            twitterLink)
                                                       },
                                                       child: Image.network(
                                                         "https://firebasestorage.googleapis.com/v0/b/react-native-crud-fireba-ea6c9.appspot.com/o/Appsoed%2FIcon%2FTwitter.png?alt=media&token=a7e5ca14-ce2f-4f4d-84a8-37c2acce0fc4",
-                                                        width: 55,
+                                                        width: 37,
                                                       ),
                                                     ),
                                                     GestureDetector(
                                                       onTap: () => {
                                                         openSomething(
-                                                            spotify_link)
+                                                            spotifyLink)
                                                       },
                                                       child: Image.network(
                                                         "https://firebasestorage.googleapis.com/v0/b/react-native-crud-fireba-ea6c9.appspot.com/o/Appsoed%2FIcon%2FSpotify.png?alt=media&token=6ff92dbb-5868-41ec-934a-ac969210907f",
-                                                        width: 55,
+                                                        width: 37,
                                                       ),
                                                     ),
                                                     GestureDetector(
                                                       onTap: () => {
                                                         openSomething(
-                                                            tiktok_link)
+                                                            tiktokLink)
                                                       },
                                                       child: Image.network(
                                                         "https://firebasestorage.googleapis.com/v0/b/react-native-crud-fireba-ea6c9.appspot.com/o/Appsoed%2FIcon%2FTikTok.png?alt=media&token=fd478a0f-28cd-4baa-b7e5-ce1d6804a43f",
-                                                        width: 55,
+                                                        width: 37,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                                SizedBox(height: 25),
-                                                Center(
+                                                const SizedBox(height: 25),
+                                                const Center(
                                                   child: Text(
                                                     "Informasi lebih lanjut dapat dilihat di :",
                                                     style: TextStyle(
@@ -323,18 +323,18 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                                             FontWeight.w600),
                                                   ),
                                                 ),
-                                                SizedBox(height: 25),
+                                                const SizedBox(height: 25),
                                                 Center(
                                                   child: Container(
                                                     padding:
-                                                        EdgeInsets.symmetric(
+                                                        const EdgeInsets.symmetric(
                                                             horizontal: 50,
                                                             vertical: 15),
                                                     // color: Colors.white,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       borderRadius:
-                                                          BorderRadius.only(
+                                                          const BorderRadius.only(
                                                               topLeft: Radius
                                                                   .circular(10),
                                                               topRight: Radius
@@ -351,7 +351,7 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                                               .withOpacity(0.4),
                                                           spreadRadius: 5,
                                                           blurRadius: 7,
-                                                          offset: Offset(0,
+                                                          offset: const Offset(0,
                                                               3), // changes position of shadow
                                                         ),
                                                       ],
@@ -359,9 +359,9 @@ class _DetailFakultasState extends State<DetailFakultas> {
                                                     child: GestureDetector(
                                                       onTap: () => {
                                                         openSomething(
-                                                            website_link)
+                                                            websiteLink)
                                                       },
-                                                      child: Text(
+                                                      child: const Text(
                                                         "Website",
                                                         style: TextStyle(
                                                             fontSize: 18,

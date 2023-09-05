@@ -164,14 +164,12 @@ class _DetailKostState extends State<DetailKost> {
             snap: false,
             floating: false,
             stretch: true,
-            leading: Container(
-              child: GestureDetector(
-                onTap: () => {Navigator.pop(context)},
-                child: Icon(CupertinoIcons.back,
-                    color: _appBarState == AppBarState.expanded
-                        ? Colors.white
-                        : Colors.black),
-              ),
+            leading: GestureDetector(
+              onTap: () => {Navigator.pop(context)},
+              child: Icon(CupertinoIcons.back,
+                  color: _appBarState == AppBarState.expanded
+                      ? Colors.white
+                      : Colors.black),
             ),
             expandedHeight: 250,
             flexibleSpace:
@@ -466,26 +464,24 @@ class _DetailKostState extends State<DetailKost> {
                               height: 20,
                             ),
                             Center(
-                              child: Container(
-                                child: GestureDetector(
-                                    onTap: () {
-                                      openInstagram();
-                                    },
-                                    child: RichText(
-                                        text: TextSpan(
-                                            style: DefaultTextStyle.of(context)
-                                                .style,
-                                            children: const [
-                                          TextSpan(
-                                              text: "Powered by : ",
-                                              style: TextStyle(fontSize: 15)),
-                                          TextSpan(
-                                              text: "@infokost.purwokerto",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w600))
-                                        ]))),
-                              ),
+                              child: GestureDetector(
+                                  onTap: () {
+                                    openInstagram();
+                                  },
+                                  child: RichText(
+                                      text: TextSpan(
+                                          style: DefaultTextStyle.of(context)
+                                              .style,
+                                          children: const [
+                                        TextSpan(
+                                            text: "Powered by : ",
+                                            style: TextStyle(fontSize: 15)),
+                                        TextSpan(
+                                            text: "@infokost.purwokerto",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600))
+                                      ]))),
                             ),
                             const SizedBox(
                               height: 10,

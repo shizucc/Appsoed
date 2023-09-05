@@ -13,8 +13,6 @@ class ScrollControllerX extends GetxController {
 
   updateScroll(double newPosition) {
     scrollPosition.value = newPosition;
-    print(scrollPosition);
-    print(bottomNavigationBarVisible);
     updateStickyContainerVisibility();
   }
 

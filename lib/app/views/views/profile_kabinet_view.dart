@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../provider/launcer_provider.dart';
-import '../../widgets/back_button_widget.dart';
 import '../../widgets/social_widget.dart';
 
 /// A class that displays the profile of the BEM Unsoed Medkom.
@@ -66,52 +65,50 @@ class ProfileKabinetView extends GetView {
                   // NOTE: END CONTENT ===========
 
                   // NOTE: MEDIA SOCIAL OF BEM
-                  Container(
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Media Sosial',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff373737),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Media Sosial',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff373737),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        children: [
+                          SocialWidget(
+                            image: 'Instagram-green',
+                            link: 'https://instagram.com/bem_unsoed',
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Wrap(
-                          spacing: 8,
-                          children: [
-                            SocialWidget(
-                              image: 'Instagram-green',
-                              link: 'https://instagram.com/bem_unsoed',
-                            ),
-                            SocialWidget(
-                              image: 'YouTube-green',
-                              link: 'https://m.youtube.com/c/BEMUnsoed',
-                            ),
-                            SocialWidget(
-                              image: 'Line-green',
+                          SocialWidget(
+                            image: 'YouTube-green',
+                            link: 'https://m.youtube.com/c/BEMUnsoed',
+                          ),
+                          SocialWidget(
+                            image: 'Line-green',
+                            link:
+                                'https://liff.line.me/1645278921-kWRPP32q/?accountId=uzf4935f',
+                          ),
+                          SocialWidget(
+                            image: 'Twitter-green',
+                            link: 'https://twitter.com/bem_unsoed',
+                          ),
+                          SocialWidget(
+                              image: 'Spotify-green',
                               link:
-                                  'https://liff.line.me/1645278921-kWRPP32q/?accountId=uzf4935f',
-                            ),
-                            SocialWidget(
-                              image: 'Twitter-green',
-                              link: 'https://twitter.com/bem_unsoed',
-                            ),
-                            SocialWidget(
-                                image: 'Spotify-green',
-                                link:
-                                    'https://open.spotify.com/show/4G1FeEt60JftSEGSx8uVDt?si=OVf1hSeOQ2iOhATTvyQTFA&utm_source=copy-link'),
-                            SocialWidget(
-                                image: 'TikTok-green',
-                                link: 'https://vt.tiktok.com/ZSd4JhVah/'),
-                          ],
-                        )
-                      ],
-                    ),
+                                  'https://open.spotify.com/show/4G1FeEt60JftSEGSx8uVDt?si=OVf1hSeOQ2iOhATTvyQTFA&utm_source=copy-link'),
+                          SocialWidget(
+                              image: 'TikTok-green',
+                              link: 'https://vt.tiktok.com/ZSd4JhVah/'),
+                        ],
+                      )
+                    ],
                   ),
                   // NOTE: END MEDIA SOCIAL BEM ============
 

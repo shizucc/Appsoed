@@ -17,7 +17,7 @@ Future<dynamic> getKosts() async {
 }
 
 class ListKost extends StatefulWidget {
-  const ListKost({Key? key});
+  const ListKost({super.key});
 
   @override
   State<ListKost> createState() => _ListKostState();
@@ -64,16 +64,14 @@ class _ListKostState extends State<ListKost> {
           SliverAppBar(
               backgroundColor: const Color.fromRGBO(241, 239, 239, 1),
               elevation: 1,
-              leading: Container(
-                child: GestureDetector(
-                  onTap: () => {Navigator.pop(context)},
-                  child: Icon(
-                      size: 30,
-                      CupertinoIcons.back,
-                      color: _appBarState == AppBarState.collapsed
-                          ? Colors.black
-                          : Colors.white),
-                ),
+              leading: GestureDetector(
+                onTap: () => {Navigator.pop(context)},
+                child: Icon(
+                    size: 30,
+                    CupertinoIcons.back,
+                    color: _appBarState == AppBarState.collapsed
+                        ? Colors.black
+                        : Colors.white),
               ),
               title: _appBarState == AppBarState.collapsed
                   ? const Text(

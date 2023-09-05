@@ -99,7 +99,7 @@ class Merch extends StatelessWidget {
           width: 150,
           height: 240,
           decoration: BoxDecoration(
-              border: Border.all(color: Color.fromRGBO(0, 0, 0, 0.1)),
+              border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.1)),
               borderRadius: BorderRadius.circular(10)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +167,7 @@ class MerchsShimmer extends StatelessWidget {
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       child: Container(
-        child: Wrap(
+        child: const Wrap(
           spacing: 20,
           runSpacing: 20,
           children: [
@@ -194,11 +194,11 @@ class MerchShimmer extends StatelessWidget {
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.grey.shade100,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: Column(
             children: [
               Container(

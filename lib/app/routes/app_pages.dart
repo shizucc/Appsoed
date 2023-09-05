@@ -1,10 +1,11 @@
+import 'package:appsoed/app/modules/fakultas/views/detail_fakultas.dart';
+import 'package:appsoed/app/modules/fakultas/views/tilik_fakultas.dart';
 import 'package:appsoed/app/modules/infokost/views/kost_list.dart';
+import 'package:appsoed/app/modules/layanan_unsoed/screens_layanan/home_layanan.dart';
 import 'package:appsoed/app/views/views/lapor_page.dart';
 import 'package:get/get.dart';
 
 import '../modules/fakultas/bindings/fakultas_binding.dart';
-import '../modules/fakultas/views/detail_fakultas_view.dart';
-import '../modules/fakultas/views/fakultas_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home/views/notification_view.dart';
@@ -118,22 +119,22 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.FAKULTAS,
-      page: () => const FakultasView(),
+      page: () => const TilikFakultas(),
       binding: FakultasBinding(),
     ),
     GetPage(
       name: Routes.DETAIL_FAKULTAS,
-      page: () => DetailFakultasView(),
+      page: () => const DetailFakultas(idFakultas: null),
     ),
     GetPage(
       name: _Paths.TODOLIST,
       page: () => const TodolistView(),
       binding: TodolistBinding(),
     ),
-    // GetPage(
-    //   name: Routes.LAYANAN_UNSOED,
-    //   page: () {}
-    // ),
+    GetPage(
+      name: Routes.LAYANAN_UNSOED,
+      page: () => const LayananUnsoed(),
+    ),
     GetPage(
       name: Routes.LAPOR,
       page: () => const LaporPage(),

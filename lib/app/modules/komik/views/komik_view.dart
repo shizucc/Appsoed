@@ -84,45 +84,43 @@ class KomikView extends GetView<KomikController> {
               )),
           SliverList(
               delegate: SliverChildListDelegate([
-            Container(
-              child: Stack(
-                children: [
-                  Obx(() {
-                    return Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 50,
-                        color: controller.appBarState.value ==
-                                (AppBarState.expanded)
-                            ? const Color.fromRGBO(255, 183, 49, 1)
-                            : Colors.white);
-                  }),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    child: Column(children: [
-                      Container(
-                        width: 40,
-                        height: 10,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: controller.appBarState.value ==
-                                    AppBarState.expanded
-                                ? const Color.fromRGBO(217, 217, 217, 1)
-                                : Colors.transparent),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ComicBuilder()
-                    ]),
-                  )
-                ],
-              ),
+            Stack(
+              children: [
+                Obx(() {
+                  return Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      color: controller.appBarState.value ==
+                              (AppBarState.expanded)
+                          ? const Color.fromRGBO(255, 183, 49, 1)
+                          : Colors.white);
+                }),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
+                  child: Column(children: [
+                    Container(
+                      width: 40,
+                      height: 10,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: controller.appBarState.value ==
+                                  AppBarState.expanded
+                              ? const Color.fromRGBO(217, 217, 217, 1)
+                              : Colors.transparent),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ComicBuilder()
+                  ]),
+                )
+              ],
             )
           ]))
         ],

@@ -1,4 +1,3 @@
-import 'package:appsoed/app/modules/gensoed_merch/model/gensoedmerch_model.dart';
 import 'package:get/get.dart';
 import "package:intl/intl.dart";
 import 'package:url_launcher/url_launcher.dart';

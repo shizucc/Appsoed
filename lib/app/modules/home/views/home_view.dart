@@ -1,3 +1,4 @@
+import 'package:appsoed/app/modules/home/views/home.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,6 @@ import 'package:get/get.dart';
 import '../../../auth/auth_controller.dart';
 // import '../../../views/views/gensoed_merch_view.dart';
 import '../../../views/views/live_chat_widget.dart';
-import '../../../widgets/home_widget.dart';
 import '../../news_app/controllers/news_app_controller.dart';
 import '../../news_app/views/news_app_view.dart';
 import '../../user_profile/views/user_profile_view.dart';
@@ -14,6 +14,9 @@ import 'package:appsoed/app/modules/gensoed_merch/views/gensoed_merch.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
+
+  @override
+  final controller = Get.put(HomeController(), permanent: true);
 
   final authController = Get.find<AuthController>();
   final newsController = Get.put(NewsAppController(), permanent: true);
@@ -83,7 +86,7 @@ class HomeView extends GetView<HomeController> {
 
 ///NOTE: List dari kumpulan widget yang akan dijadikan di dalam BottomNavBar
 final List<Widget> widgetMenuPages = [
-  HomeWidget(),
+  const Home(),
   const NewsAppView(),
   const GensoedMerchView(),
   const LiveChatWidget(),

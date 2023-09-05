@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:appsoed/app/views/views/remake-an%20home%20&%20tilik%20fakultas/detail_fakultas.dart';
+import 'package:appsoed/app/modules/fakultas/views/detail_fakultas.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,6 +42,8 @@ class Faculties extends StatelessWidget {
         spacing: 10,
         runSpacing: 30,
         children: faculties.map((faculty) {
+          print(
+              "https://api.bem-unsoed.com/api/faculty/image/${faculty['image'].toString()}");
           return Fakultas(
               id: faculty['id'],
               name: faculty['name'].toString(),
@@ -112,40 +114,38 @@ class Fakultas extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      child: Image.network(
-                        "https://api.bem-unsoed.com/api/faculty/image/${image}",
-                        width: 120,
-                        height: 120,
+                Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: Image.network(
+                    "https://api.bem-unsoed.com/api/faculty/image/$image",
+                    width: 120,
+                    height: 120,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        alias,
+                        style: const TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600),
                       ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          alias,
+                      const SizedBox(height: 5),
+                      Container(
+                        constraints: const BoxConstraints(
+                          maxWidth: 150,
+                        ),
+                        child: Text(
+                          name,
                           style: const TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 5),
-                        Container(
-                          constraints: const BoxConstraints(
-                            maxWidth: 150,
-                          ),
-                          child: Text(
-                            name,
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
+                            fontSize: 14,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
                 const Icon(
                   Icons.chevron_right,
@@ -212,7 +212,7 @@ class _TilikFakultasState extends State<TilikFakultas> {
         expandedHeight: 120,
         flexibleSpace: FlexibleSpaceBar(
           background: Image.network(
-            "https://firebasestorage.googleapis.com/v0/b/react-native-crud-fireba-ea6c9.appspot.com/o/Appsoed%2FFakultasBanner.png?alt=media&token=76751c76-aa80-4954-b2d7-92907f2f9d23",
+            "https://firebasestorage.googleapis.com/v0/b/appsoed-1b70e.appspot.com/o/FakultasBanner.png?alt=media&token=ed804c68-4a90-495c-a683-5174f5bec621",
             fit: BoxFit.cover,
           ),
         ),
