@@ -57,9 +57,12 @@ dependencies:
   url_launcher: ^6.1.5
 
   http: ^1.1.0
+  gherkin: ^2.0.8
 
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 
